@@ -2023,9 +2023,10 @@ html, body, #story, .passage, #passages {
 
 
 
-</style><script role="script" id="twine-user-script" type="text/twine-javascript">// ЖЕСТКИЙ ГЛОБАЛЬНЫЙ ФИКС ДЛЯ TELEGRAM-БОТА
-// Ловим тапы по всей карте и принудительно запускаем переходы SugarCube!
-$(document).on('pointerdown', '[data-passage]', function (e) {
+</style><script role="script" id="twine-user-script" type="text/twine-javascript">// НАДЁЖНЫЙ ТОЧЕЧНЫЙ ФИКС ДЛЯ TELEGRAM-БОТА (БЕЗ МЕРЦАНИЯ ЭКРАНА)
+// Скрипт срабатывает строго при клике по Собачке или Мячу на карте!
+$(document).on('click', '.level-dog-node, .level-ball-node', function (e) {
+  e.preventDefault();
   e.stopPropagation();
   var passageName = $(this).attr('data-passage');
   if (passageName) {
@@ -3154,8 +3155,7 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
   &lt;/div&gt;
 
 &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
+
 &lt;&lt;/nobr&gt;&gt;
 </tw-passagedata><tw-passagedata pid="8" name="StartGame_Level2" tags="" position="900,700" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;game-wrapper&quot;&gt;
@@ -4040,8 +4040,7 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
   &lt;/div&gt;
 
 &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
+
 &lt;&lt;/nobr&gt;&gt;
 </tw-passagedata><tw-passagedata pid="11" name="StartGame_Level3" tags="" position="900,900" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;game-wrapper&quot;&gt;
