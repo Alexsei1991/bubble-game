@@ -2047,6 +2047,34 @@ $(document).on('click', '.level-dog-node, .level-ball-node', function (e) {
     Engine.play(passageName);
   }
 });
+
+
+
+
+
+
+
+
+
+// БРОНЕБОЙНЫЙ КОНТРОЛЬ ВСЕЙ КАРТЫ (ФИКС БУБЛИКА 1 УРОВНЯ И ВСЕХ ОСТАЛЬНЫХ)
+$(document).on('click pointerdown', '.level-node, #bubble-1, .level-dog-node, .level-ball-node', function (e) {
+  
+  // Берем точное количество энергии из памяти SugarCube
+  var currentEnergy = State.variables.energy;
+  
+  // ЖЕСТКИЙ СТОП: Если энергии 0 или меньше — блокируем клик прямо на главном экране!
+  if (currentEnergy <= 0) {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    // Плавно показываем наше ретро-окно «НЕТ ЭНЕРГИИ» прямо поверх карты Главного меню
+    $('#global-energy-alert').fadeIn(200);
+    
+    return false; // Намертво отрезаем переход на пассаж заставки уровня!
+  }
+  
+  // Если энергия ЕСТЬ (1 и больше) — скрипт тихо пропускает игрока дальше на заставку уровня
+});
 </script><tw-passagedata pid="1" name="StartGame" tags="" position="900,500" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;game-wrapper&quot;&gt;
   
@@ -2576,7 +2604,12 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
 
 &lt;&lt;set $level1_stars = 0&gt;&gt;
 &lt;&lt;set $level2_stars = 0&gt;&gt;
-</tw-passagedata><tw-passagedata pid="4" name="Level1_Intro" tags="" position="700,500" size="100,100">&lt;&lt;nobr&gt;&gt;
+
+
+&lt;&lt;set $energy = 5&gt;&gt;
+&lt;&lt;set $crystals = 150&gt;&gt;
+</tw-passagedata><tw-passagedata pid="4" name="Level1_Intro" tags="" position="700,500" size="100,100">
+&lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;game-wrapper&quot;&gt;
   
   &lt;!-- Задний фон с белыми кольцами --&gt;
@@ -2672,18 +2705,21 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
   &lt;&lt;button &#39;&lt;svg viewBox=&quot;0 0 24 24&quot; style=&quot;width: 24px; height: 24px; display: block;&quot;&gt;&lt;path d=&quot;M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z&quot; fill=&quot;#000000&quot;/&gt;&lt;/svg&gt;&#39; &quot;MainMenu&quot;&gt;&gt;
   &lt;&lt;/button&gt;&gt;
 
-  &lt;!-- ТВОЯ КНОПКА СТАРТ С ТВОИМ ОРИГИНАЛЬНЫМ АДРЕСОМ (СПРАВА) --&gt;
-  &lt;div style=&quot;flex-grow: 1 !important;&quot;&gt;
-    &lt;&lt;button &quot;START&quot; &quot;StartGame&quot;&gt;&gt;&lt;&lt;/button&gt;&gt;
-  &lt;/div&gt;
-
-&lt;/div&gt;
-&lt;/div&gt;
 
     
+    &lt;!-- Кнопка Закрыть (Отдохнуть) --&gt;
+&lt;&lt;button &quot;START&quot; &quot;StartGame&quot;&gt;&gt;
+  &lt;&lt;set $energy = Math.max(0, $energy - 1)&gt;&gt;
+&lt;&lt;/button&gt;&gt;
 
-
+  &lt;/div&gt;
 &lt;/div&gt;
+
+
+    
+  &lt;/div&gt;
+
+
 &lt;&lt;/nobr&gt;&gt;
 
 </tw-passagedata><tw-passagedata pid="5" name="WinScreen" tags="" position="1100,500" size="100,100">&lt;&lt;nobr&gt;&gt;
@@ -2769,21 +2805,34 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
 </tw-passagedata><tw-passagedata pid="6" name="MainMenu" tags="" position="300,500" size="200,200">&lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;menu-mobile-fullscreen&quot;&gt;
   
-  &lt;!-- НАША РЕТРО-ШАПКА --&gt;
-  &lt;div class=&quot;mobile-window-header&quot;&gt;
-    &lt;div class=&quot;mobile-header-dots&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;
-    &lt;div class=&quot;mobile-header-title&quot;&gt;bubbles&lt;/div&gt;
+
+  
+&lt;!-- НАША КЛАССИЧЕСКАЯ РЕТРО-ШАПКА С ЧЕСТНЫМ ОТОБРАЖЕНИЕМ ПЕРЕМЕННЫХ --&gt;
+&lt;div class=&quot;mobile-window-header&quot; style=&quot;display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 0 12px !important; box-sizing: border-box !important; height: 42px !important;&quot;&gt;
+  &lt;div class=&quot;mobile-header-dots&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;
+  &lt;div style=&quot;display: flex; gap: 15px; font-family: sans-serif; font-size: 12px; font-weight: bold; color: #000;&quot;&gt;
+    &lt;span&gt;💎 &lt;&lt;print $crystals&gt;&gt;&lt;/span&gt;
+    &lt;span&gt;⚡ &lt;&lt;print $energy&gt;&gt;/5&lt;/span&gt;
   &lt;/div&gt;
+  &lt;div class=&quot;mobile-header-title&quot;&gt;bubbles&lt;/div&gt;
+&lt;/div&gt;
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
   &lt;!-- ЦЕНТРАЛЬНЫЙ БЛОК: Скроллящаяся огромная карта уровней --&gt;
   &lt;div class=&quot;mobile-menu-content vertical-scroll&quot; style=&quot;height: calc(100% - 42px) !important; overflow-y: scroll !important;&quot;&gt;
     &lt;h1 class=&quot;frozen-level-title&quot; style=&quot;font-size: 26px !important; margin: 20px 0 10px 0 !important; text-align: center !important; width: 100%;&quot;&gt;SELECT LEVEL&lt;/h1&gt;
     
     
-    &lt;!-- ТЕСТОВЫЙ КРАСНЫЙ КВАДРАТ: ТЕПЕРЬ СТРОГО ПОД НАДПИСЬЮ SELECT LEVEL НА ТЕЛЕФОНЕ --&gt;
-&lt;div style=&quot;width: 30px; height: 35px; margin: 10px auto !important; background: red; border: 3px solid #000; border-radius: 6px; z-index: 99999; position: relative;&quot;&gt;&lt;/div&gt;
 
-    
     
 
     
@@ -2857,110 +2906,173 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
         
         &lt;!-- Ссылка для запуска раунда --&gt;
         &lt;span style=&quot;display: flex; width: 100%; height: 100%; align-items: center; justify-content: center;&quot; class=&quot;bubble-text-fix&quot;&gt;
-          &lt;&lt;link &quot;&quot; &quot;Level1_Intro&quot;&gt;&gt;&lt;&lt;/link&gt;&gt;
+        &lt;&lt;link &quot;&quot;&gt;&gt;
+  &lt;&lt;if $energy lte 0&gt;&gt;
+    &lt;&lt;run $(&#39;#global-energy-alert&#39;).fadeIn(200)&gt;&gt;
+  &lt;&lt;else&gt;&gt;
+    &lt;&lt;goto &quot;Level1_Intro&quot;&gt;&gt;
+  &lt;&lt;/if&gt;&gt;
+&lt;&lt;/link&gt;&gt;
         &lt;/span&gt;
         
 
       &lt;/div&gt;
        
 
-&lt;!-- УРОВЕНЬ 2: ВЕКТОРНАЯ СОБАЧКА — ТВОЙ ОРИГИНАЛЬНЫЙ РАБОЧИЙ КОД --&gt;
-      &lt;div class=&quot;level-dog-node&quot; data-passage=&quot;Level2_Intro&quot; style=&quot;position: absolute !important; top: 215px !important; left: 220px !important; width: 143px !important; height: 124px !important; overflow: visible !important; display: flex !important; align-items: center !important; justify-content: center !important; background: none !important; border: none !important; box-shadow: none !important; z-index: 20 !important; cursor: pointer !important;&quot;&gt;
-        
-        &lt;svg viewBox=&quot;0 0 120 100&quot; style=&quot;width: 100% !important; height: 100% !important; display: block !important; filter: drop-shadow(0px 7px 0px rgba(41,128,185,0.3)) !important; transition: transform 0.1s ease !important; overflow: visible !important;&quot; onmouseover=&quot;this.style.transform=&#39;scale(1.08) rotate(2deg)&#39;&quot; onmouseout=&quot;this.style.transform=&#39;scale(1) rotate(0deg)&#39;&quot;&gt;
-          &lt;g stroke=&quot;#000000&quot; stroke-width=&quot;3&quot; stroke-linejoin=&quot;round&quot; stroke-linecap=&quot;round&quot;&gt;
-            &lt;ellipse cx=&quot;83&quot; cy=&quot;74&quot; rx=&quot;8&quot; ry=&quot;18&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(-5 83 74)&quot; /&gt;
-            &lt;ellipse cx=&quot;50&quot; cy=&quot;73&quot; rx=&quot;8&quot; ry=&quot;17&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(10 50 73)&quot; /&gt;
-            &lt;ellipse cx=&quot;91&quot; cy=&quot;45&quot; rx=&quot;6&quot; ry=&quot;13&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(40 91 45)&quot; /&gt;
-            &lt;ellipse cx=&quot;75&quot; cy=&quot;74&quot; rx=&quot;8.5&quot; ry=&quot;18.5&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(5 75 74)&quot; /&gt;
-            &lt;ellipse cx=&quot;65&quot; cy=&quot;57&quot; rx=&quot;19&quot; ry=&quot;11&quot; fill=&quot;#3498db&quot; /&gt;
-            &lt;ellipse cx=&quot;43&quot; cy=&quot;71&quot; rx=&quot;9&quot; ry=&quot;19&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(15 43 71)&quot; /&gt;
-            &lt;ellipse cx=&quot;44&quot; cy=&quot;40&quot; rx=&quot;7.5&quot; ry=&quot;13.5&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(-15 44 40)&quot; /&gt;
-            &lt;ellipse cx=&quot;47&quot; cy=&quot;15&quot; rx=&quot;8.5&quot; ry=&quot;15&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(15 47 15)&quot; /&gt;
-            &lt;ellipse cx=&quot;38&quot; cy=&quot;14&quot; rx=&quot;9&quot; ry=&quot;16&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(-10 38 14)&quot; /&gt;
-            &lt;ellipse cx=&quot;24&quot; cy=&quot;33&quot; rx=&quot;13&quot; ry=&quot;9.5&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(-5 24 33)&quot; /&gt;
-            &lt;path d=&quot;M 10,32 C 8,29 5,30 5,33 C 5,36 8,37 10,34 Z&quot; fill=&quot;#3498db&quot; /&gt;
-          &lt;/g&gt;
-          &lt;g fill=&quot;#ffffff&quot; opacity=&quot;0.6&quot;&gt;
-            &lt;ellipse cx=&quot;23&quot; cy=&quot;28&quot; rx=&quot;6&quot; ry=&quot;2&quot; transform=&quot;rotate(-5 23 28)&quot; /&gt; 
-            &lt;ellipse cx=&quot;34&quot; cy=&quot;10&quot; rx=&quot;4&quot; ry=&quot;2&quot; transform=&quot;rotate(-10 34 10)&quot; /&gt; 
-            &lt;ellipse cx=&quot;61&quot; cy=&quot;51&quot; rx=&quot;11&quot; ry=&quot;2.5&quot; /&gt; 
-            &lt;ellipse cx=&quot;41&quot; cy=&quot;65&quot; rx=&quot;2.5&quot; ry=&quot;6&quot; transform=&quot;rotate(15 41 65)&quot; /&gt; 
-            &lt;ellipse cx=&quot;75&quot; cy=&quot;65&quot; rx=&quot;2.5&quot; ry=&quot;6&quot; /&gt; 
-            &lt;ellipse cx=&quot;91&quot; cy=&quot;39&quot; rx=&quot;2&quot; ry=&quot;5&quot; transform=&quot;rotate(40 91 39)&quot; /&gt; 
-          &lt;/g&gt;
-        &lt;/svg&gt;
-
-        &lt;&lt;if $level2_stars gte 1&gt;&gt;
-          &lt;div style=&quot;position: absolute !important; bottom: -20px !important; left: 50% !important; transform: translateX(-50%) !important; width: auto !important; display: flex !important; gap: 4px !important; pointer-events: none !important; z-index: 30 !important;&quot;&gt;
-            &lt;div style=&quot;width: 26px; height: 24px;&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z&quot; fill=&quot;#ffd32c&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot; /&gt;&lt;/svg&gt;&lt;/div&gt;
-            &lt;div style=&quot;width: 24px; height: 24px;&quot;&gt;
-              &lt;&lt;if $level2_stars gte 2&gt;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z&quot; fill=&quot;#ffd32c&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot; /&gt;&lt;/svg&gt;
-              &lt;&lt;else&gt;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z&quot; fill=&quot;#ffffff&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot; opacity=&quot;0.3&quot; /&gt;&lt;/svg&gt;&lt;&lt;/if&gt;&gt;
-            &lt;/div&gt;
-            &lt;div style=&quot;width: 24px; height: 24px;&quot;&gt;
-              &lt;&lt;if $level2_stars eq 3&gt;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z&quot; fill=&quot;#ffd32c&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot; /&gt;&lt;/svg&gt;
-              &lt;&lt;else&gt;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z&quot; fill=&quot;#ffffff&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot; opacity=&quot;0.3&quot; /&gt;&lt;/svg&gt;&lt;&lt;/if&gt;&gt;
-            &lt;/div&gt;
-          &lt;/div&gt;
-        &lt;&lt;/if&gt;&gt;
-      &lt;/div&gt;
 
 
 
-
-&lt;!-- УРОВЕНЬ 3: ВЕКТОРНЫЙ ПЛЯЖНЫЙ МЯЧ — ТВОЙ ОРИГИНАЛЬНЫЙ РАБОЧИЙ КОД --&gt;
-      &lt;div class=&quot;level-ball-node&quot; data-passage=&quot;Level3_Intro&quot; style=&quot;position: absolute !important; top: 350px !important; left: 50px !important; width: 130px !important; height: 130px !important; overflow: visible !important; display: flex !important; align-items: center !important; justify-content: center !important; background: none !important; border: none !important; box-shadow: none !important; z-index: 20 !important; cursor: pointer !important;&quot;&gt;
-        
-        &lt;style&gt;
-          @keyframes beachBallBounce {
-            0%, 100% { transform: translateY(0px) scale(1); }
-            50% { transform: translateY(-12px) scale(0.98); }
-          }
-          .anim-ball-bounce { animation: beachBallBounce 3.5s infinite ease-in-out; }
-          @keyframes ballShadowPulse {
-            0%, 100% { transform: scale(1); opacity: 0.25; }
-            50% { transform: scale(0.75); opacity: 0.1; }
-          }
-          .anim-ball-shadow-only { animation: ballShadowPulse 3.5s infinite ease-in-out; }
-        &lt;/style&gt;
-
-        &lt;svg class=&quot;anim-ball-bounce&quot; viewBox=&quot;0 0 200 200&quot; style=&quot;width: 100% !important; height: 100% !important; display: block !important; transition: transform 0.1s ease !important; overflow: visible !important;&quot; onmouseover=&quot;this.style.transform=&#39;scale(1.08) rotate(5deg)&#39;&quot; onmouseout=&quot;this.style.transform=&#39;scale(1) rotate(0deg)&#39;&quot;&gt;
-          &lt;defs&gt;&lt;clipPath id=&quot;ball-clip-clean-final&quot;&gt;&lt;circle cx=&quot;100&quot; cy=&quot;100&quot; r=&quot;94&quot; /&gt;&lt;/clipPath&gt;&lt;/defs&gt;
-          &lt;circle cx=&quot;100&quot; cy=&quot;100&quot; r=&quot;94&quot; fill=&quot;#ffffff&quot; stroke=&quot;#000000&quot; stroke-width=&quot;5&quot; /&gt;
-          &lt;g clip-path=&quot;url(#ball-clip-clean-final)&quot;&gt;
-            &lt;path d=&quot;M 132,77 C 98,60 55,50 10,66 A 94,94 0 0,0 15,145 C 55,122 100,95 132,77 Z&quot; fill=&quot;#ffea79&quot; /&gt;
-            &lt;path d=&quot;M 132,77 C 150,90 170,102 193,114 A 94,94 0 0,1 148,181 C 145,150 140,115 132,77 Z&quot; fill=&quot;#fca1a2&quot; /&gt;
-            &lt;path d=&quot;M 132,77 C 122,53 113,28 105,6 A 94,94 0 0,1 161,29 C 151,45 141,61 132,77 Z&quot; fill=&quot;#8ec4e6&quot; /&gt;
-          &lt;/g&gt;
-          &lt;g stroke=&quot;#000000&quot; stroke-width=&quot;5&quot; stroke-linecap=&quot;round&quot; fill=&quot;none&quot; clip-path=&quot;url(#ball-clip-clean-final)&quot;&gt;
-            &lt;path d=&quot;M 132,77 C 98,60 55,50 10,66&quot; /&gt;&lt;path d=&quot;M 132,77 C 60,120 40,130 24,142&quot; /&gt;
-            &lt;path d=&quot;M 132,77 C 145,115 150,150 148,181&quot; /&gt;&lt;path d=&quot;M 132,77 C 150,90 170,102 193,114&quot; /&gt;
-            &lt;path d=&quot;M 132,77 C 122,53 113,28 105,6&quot; /&gt;&lt;path d=&quot;M 132,77 C 151,45 141,61 161,29&quot; /&gt;
-          &lt;/g&gt;
-          &lt;circle cx=&quot;132&quot; cy=&quot;77&quot; r=&quot;20&quot; fill=&quot;#ffffff&quot; stroke=&quot;#000000&quot; stroke-width=&quot;5&quot; /&gt;
-          &lt;path d=&quot;M 45,35 Q 75,15 115,22 Q 85,38 55,55 Z&quot; fill=&quot;#ffffff&quot; opacity=&quot;0.4&quot; /&gt;
-          &lt;circle cx=&quot;100&quot; cy=&quot;100&quot; r=&quot;94&quot; fill=&quot;none&quot; stroke=&quot;#000000&quot; stroke-width=&quot;5&quot; /&gt;
-        &lt;/svg&gt;
-
-        &lt;div class=&quot;anim-ball-shadow-only&quot; style=&quot;position: absolute !important; bottom: -10px !important; left: 50% !important; transform: translateX(-50%) !important; width: 70px !important; height: 10px !important; background: rgba(0,0,0,0.2) !important; border-radius: 50% !important; pointer-events: none !important; z-index: 10 !important;&quot;&gt;&lt;/div&gt;
-
-        &lt;&lt;if $level3_stars gte 1&gt;&gt;
-          &lt;div style=&quot;position: absolute !important; bottom: -24px !important; left: 50% !important; transform: translateX(-50%) !important; width: auto !important; display: flex !important; gap: 4px !important; pointer-events: none !important; z-index: 30 !important;&quot;&gt;
-            &lt;div style=&quot;width: 24px; height: 24px;&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z&quot; fill=&quot;#ffd32c&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot; /&gt;&lt;/svg&gt;&lt;/div&gt;
-            &lt;div style=&quot;width: 24px; height: 24px;&quot;&gt;
-              &lt;&lt;if $level3_stars gte 2&gt;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z&quot; fill=&quot;#ffd32c&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot; /&gt;&lt;/svg&gt;
-              &lt;&lt;else&gt;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z&quot; fill=&quot;#ffffff&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot; opacity=&quot;0.3&quot; /&gt;&lt;/svg&gt;&lt;&lt;/if&gt;&gt;
-            &lt;/div&gt;
-            &lt;div style=&quot;width: 24px; height: 24px;&quot;&gt;
-              &lt;&lt;if $level3_stars eq 3&gt;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z&quot; fill=&quot;#ffd32c&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot; /&gt;&lt;/svg&gt;
-              &lt;&lt;else&gt;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z&quot; fill=&quot;#ffffff&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot; opacity=&quot;0.3&quot; /&gt;&lt;/svg&gt;&lt;&lt;/if&gt;&gt;
-            &lt;/div&gt;
-          &lt;/div&gt;
-        &lt;&lt;/if&gt;&gt;
-      &lt;/div&gt;
-
+&lt;!-- УРОВЕНЬ 2: ВЕКТОРНАЯ СОБАЧКА — ПОЛНЫЙ ФИКС КЛИКА ДЛЯ TELEGRAM И TWINE --&gt;
+&lt;div class=&quot;level-dog-node&quot; data-passage=&quot;Level2_Intro&quot; style=&quot;position: absolute !important; top: 215px !important; left: 220px !important; width: 143px !important; height: 124px !important; overflow: visible !important; display: flex !important; align-items: center !important; justify-content: center !important; background: none !important; border: none !important; box-shadow: none !important; z-index: 20 !important; cursor: pointer !important;&quot; onclick=&quot;
+  if (State.variables.energy &lt;= 0) {
+    event.preventDefault();
+    event.stopPropagation();
+    $(&#39;#global-energy-alert&#39;).css(&#39;display&#39;, &#39;flex&#39;);
+    return false;
+  }
+&quot;&gt;
   
+  &lt;style&gt;
+    /* Мягкое покачивание шарика-собачки от ветра */
+    @keyframes dogWindSway {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      25% { transform: translateY(-3px) rotate(-3deg); }
+      75% { transform: translateY(-1px) rotate(4deg); }
+    }
+    .anim-dog-wind {
+      animation: dogWindSway 4.5s infinite ease-in-out !important;
+      transform-origin: bottom center !important;
+    }
+  &lt;/style&gt;
+
+  &lt;!-- Качающаяся SVG-картинка собачки --&gt;
+  &lt;svg class=&quot;anim-dog-wind&quot; viewBox=&quot;0 0 120 100&quot; style=&quot;width: 100% !important; height: 100% !important; display: block !important; filter: drop-shadow(0px 7px 0px rgba(41,128,185,0.3)) !important; transition: transform 0.1s ease !important; overflow: visible !important;&quot; onmouseover=&quot;this.style.transform=&#39;scale(1.08) rotate(2deg)&#39;&quot; onmouseout=&quot;this.style.transform=&#39;scale(1) rotate(0deg)&#39;&quot;&gt;
+    &lt;g stroke=&quot;#000000&quot; stroke-width=&quot;3&quot; stroke-linejoin=&quot;round&quot; stroke-linecap=&quot;round&quot;&gt;
+      &lt;!-- 1. ЗАДНИЙ ПЛАН --&gt;
+      &lt;ellipse cx=&quot;83&quot; cy=&quot;74&quot; rx=&quot;8&quot; ry=&quot;18&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(-5 83 74)&quot; /&gt;
+      &lt;ellipse cx=&quot;50&quot; cy=&quot;73&quot; rx=&quot;8&quot; ry=&quot;17&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(10 50 73)&quot; /&gt;
+      &lt;ellipse cx=&quot;91&quot; cy=&quot;45&quot; rx=&quot;6&quot; ry=&quot;13&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(40 91 45)&quot; /&gt;
+      
+      &lt;!-- 2. ПЕРЕДНИЙ ПЛАН --&gt;
+      &lt;ellipse cx=&quot;75&quot; cy=&quot;74&quot; rx=&quot;8.5&quot; ry=&quot;18.5&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(5 75 74)&quot; /&gt;
+      &lt;ellipse cx=&quot;65&quot; cy=&quot;57&quot; rx=&quot;19&quot; ry=&quot;11&quot; fill=&quot;#3498db&quot; /&gt;
+      &lt;ellipse cx=&quot;43&quot; cy=&quot;71&quot; rx=&quot;9&quot; ry=&quot;19&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(15 43 71)&quot; /&gt;
+      &lt;ellipse cx=&quot;44&quot; cy=&quot;40&quot; rx=&quot;7.5&quot; ry=&quot;13.5&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(-15 44 40)&quot; /&gt;
+      &lt;ellipse cx=&quot;47&quot; cy=&quot;15&quot; rx=&quot;8.5&quot; ry=&quot;15&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(15 47 15)&quot; /&gt;
+      &lt;ellipse cx=&quot;38&quot; cy=&quot;14&quot; rx=&quot;9&quot; ry=&quot;16&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(-10 38 14)&quot; /&gt;
+      &lt;ellipse cx=&quot;24&quot; cy=&quot;33&quot; rx=&quot;13&quot; ry=&quot;9.5&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(-5 24 33)&quot; /&gt;
+      &lt;path d=&quot;M 10,32 C 8,29 5,30 5,33 C 5,36 8,37 10,34 Z&quot; fill=&quot;#3498db&quot; /&gt;
+    &lt;/g&gt;
+    &lt;g fill=&quot;#ffffff&quot; opacity=&quot;0.6&quot;&gt;
+      &lt;ellipse cx=&quot;23&quot; cy=&quot;28&quot; rx=&quot;6&quot; ry=&quot;2&quot; transform=&quot;rotate(-5 23 28)&quot; /&gt; 
+      &lt;ellipse cx=&quot;34&quot; cy=&quot;10&quot; rx=&quot;4&quot; ry=&quot;2&quot; transform=&quot;rotate(-10 34 10)&quot; /&gt; 
+      &lt;ellipse cx=&quot;61&quot; cy=&quot;51&quot; rx=&quot;11&quot; ry=&quot;2.5&quot; /&gt; 
+      &lt;ellipse cx=&quot;41&quot; cy=&quot;65&quot; rx=&quot;2.5&quot; ry=&quot;6&quot; transform=&quot;rotate(15 41 65)&quot; /&gt; 
+      &lt;ellipse cx=&quot;75&quot; cy=&quot;65&quot; rx=&quot;2.5&quot; ry=&quot;6&quot; /&gt; 
+      &lt;ellipse cx=&quot;91&quot; cy=&quot;39&quot; rx=&quot;2&quot; ry=&quot;5&quot; transform=&quot;rotate(40 91 39)&quot; /&gt; 
+    &lt;/g&gt;
+  &lt;/svg&gt;
+
+  &lt;!-- БЛОК ВЕКТОРНЫХ ЗВЁЗД ПОД ЛАПКАМИ НАШЕЙ СОБАЧКИ --&gt;
+  &lt;&lt;if $level2_stars gte 1&gt;&gt;
+    &lt;div style=&quot;position: absolute !important; bottom: -20px !important; left: 50% !important; transform: translateX(-50%) !important; width: auto !important; display: flex !important; gap: 4px !important; pointer-events: none !important; z-index: 30 !important;&quot;&gt;
+      &lt;div style=&quot;width: 26px; height: 24px;&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z&quot; fill=&quot;#ffd32c&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot; /&gt;&lt;/svg&gt;&lt;/div&gt;
+      &lt;div style=&quot;width: 24px; height: 24px;&quot;&gt;
+        &lt;&lt;if $level2_stars gte 2&gt;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z&quot; fill=&quot;#ffd32c&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot; /&gt;&lt;/svg&gt;
+        &lt;&lt;else&gt;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z&quot; fill=&quot;#ffffff&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot; opacity=&quot;0.3&quot; /&gt;&lt;/svg&gt;&lt;&lt;/if&gt;&gt;
+      &lt;/div&gt;
+      &lt;div style=&quot;width: 24px; height: 24px;&quot;&gt;
+        &lt;&lt;if $level2_stars eq 3&gt;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z&quot; fill=&quot;#ffd32c&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot; /&gt;&lt;/svg&gt;
+        &lt;&lt;else&gt;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z&quot; fill=&quot;#ffffff&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot; opacity=&quot;0.3&quot; /&gt;&lt;/svg&gt;&lt;&lt;/if&gt;&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;&lt;/if&gt;&gt;
+
+&lt;/div&gt;
+
+
+
+
+
+
+&lt;!-- УРОВЕНЬ 3: ВЕКТОРНЫЙ ПЛЯЖНЫЙ МЯЧ — ПОЛНЫЙ ФИКС КЛИКА ДЛЯ TELEGRAM И TWINE --&gt;
+&lt;div class=&quot;level-ball-node&quot; data-passage=&quot;Level3_Intro&quot; style=&quot;position: absolute !important; top: 350px !important; left: 50px !important; width: 130px !important; height: 130px !important; overflow: visible !important; display: flex !important; align-items: center !important; justify-content: center !important; background: none !important; border: none !important; box-shadow: none !important; z-index: 20 !important; cursor: pointer !important;&quot; onclick=&quot;
+  if (State.variables.energy &lt;= 0) {
+    event.preventDefault();
+    event.stopPropagation();
+    $(&#39;#global-energy-alert&#39;).css(&#39;display&#39;, &#39;flex&#39;);
+    return false;
+  }
+&quot;&gt;
+  
+  &lt;style&gt;
+    @keyframes beachBallBounce {
+      0%, 100% { transform: translateY(0px) scale(1); }
+      50% { transform: translateY(-12px) scale(0.98); }
+    }
+    .anim-ball-bounce {
+      animation: beachBallBounce 3.5s infinite ease-in-out;
+    }
+
+    @keyframes ballShadowPulse {
+      0%, 100% { transform: scale(1); opacity: 0.25; }
+      50% { transform: scale(0.75); opacity: 0.1; }
+    }
+    .anim-ball-shadow-only {
+      animation: ballShadowPulse 3.5s infinite ease-in-out;
+    }
+  &lt;/style&gt;
+
+  &lt;!-- МЯЧИК (Лениво подпрыгивает вверх-вниз) --&gt;
+  &lt;svg class=&quot;anim-ball-bounce&quot; viewBox=&quot;0 0 200 200&quot; style=&quot;width: 100% !important; height: 100% !important; display: block !important; transition: transform 0.1s ease !important; overflow: visible !important;&quot; onmouseover=&quot;this.style.transform=&#39;scale(1.08) rotate(5deg)&#39;&quot; onmouseout=&quot;this.style.transform=&#39;scale(1) rotate(0deg)&#39;&quot;&gt;
+    &lt;defs&gt;
+      &lt;clipPath id=&quot;ball-clip-clean-final&quot;&gt;
+        &lt;circle cx=&quot;100&quot; cy=&quot;100&quot; r=&quot;94&quot; /&gt;
+      &lt;/clipPath&gt;
+    &lt;/defs&gt;
+
+    &lt;circle cx=&quot;100&quot; cy=&quot;100&quot; r=&quot;94&quot; fill=&quot;#ffffff&quot; stroke=&quot;#000000&quot; stroke-width=&quot;5&quot; /&gt;
+
+    &lt;g clip-path=&quot;url(#ball-clip-clean-final)&quot;&gt;
+      &lt;path d=&quot;M 132,77 C 98,60 55,50 10,66 A 94,94 0 0,0 15,145 C 55,122 100,95 132,77 Z&quot; fill=&quot;#ffea79&quot; /&gt;
+      &lt;path d=&quot;M 132,77 C 150,90 170,102 193,114 A 94,94 0 0,1 148,181 C 145,150 140,115 132,77 Z&quot; fill=&quot;#fca1a2&quot; /&gt;
+      &lt;path d=&quot;M 132,77 C 122,53 113,28 105,6 A 94,94 0 0,1 161,29 C 151,45 141,61 132,77 Z&quot; fill=&quot;#8ec4e6&quot; /&gt;
+    &lt;/g&gt;
+
+    &lt;g stroke=&quot;#000000&quot; stroke-width=&quot;5&quot; stroke-linecap=&quot;round&quot; fill=&quot;none&quot; clip-path=&quot;url(#ball-clip-clean-final)&quot;&gt;
+      &lt;path d=&quot;M 132,77 C 98,60 55,50 10,66&quot; /&gt;
+      &lt;path d=&quot;M 132,77 C 60,120 40,130 24,142&quot; /&gt;
+      &lt;path d=&quot;M 132,77 C 145,115 150,150 148,181&quot; /&gt;
+      &lt;path d=&quot;M 132,77 C 150,90 170,102 193,114&quot; /&gt;
+      &lt;path d=&quot;M 132,77 C 122,53 113,28 105,6&quot; /&gt;
+      &lt;path d=&quot;M 132,77 C 151,45 141,61 161,29&quot; /&gt;
+    &lt;/g&gt;
+
+    &lt;circle cx=&quot;132&quot; cy=&quot;77&quot; r=&quot;20&quot; fill=&quot;#ffffff&quot; stroke=&quot;#000000&quot; stroke-width=&quot;5&quot; /&gt;
+    &lt;path d=&quot;M 45,35 Q 75,15 115,22 Q 85,38 55,55 Z&quot; fill=&quot;#ffffff&quot; opacity=&quot;0.4&quot; /&gt;
+    &lt;circle cx=&quot;100&quot; cy=&quot;100&quot; r=&quot;94&quot; fill=&quot;none&quot; stroke=&quot;#000000&quot; stroke-width=&quot;5&quot; /&gt;
+  &lt;/svg&gt;
+
+  &lt;!-- АНИМИРОВАННАЯ ТЕНЬ ПОД МЯЧОМ --&gt;
+  &lt;div class=&quot;anim-ball-shadow-only&quot; style=&quot;position: absolute !important; bottom: -10px !important; left: 50% !important; transform: translateX(-50%) !important; width: 70px !important; height: 10px !important; background: rgba(0,0,0,0.2) !important; border-radius: 50% !important; pointer-events: none !important; z-index: 10 !important;&quot;&gt;&lt;/div&gt;
+
+  &lt;!-- БЛОК ЗВЁЗД ДЛЯ 3 УРОВНЯ --&gt;
+  &lt;&lt;if $level3_stars gte 1&gt;&gt;
+    &lt;div style=&quot;position: absolute !important; bottom: -24px !important; left: 50% !important; transform: translateX(-50%) !important; width: auto !important; display: flex !important; gap: 4px !important; pointer-events: none !important; z-index: 30 !important;&quot;&gt;
+      &lt;div style=&quot;width: 24px; height: 24px;&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z&quot; fill=&quot;#ffd32c&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot; /&gt;&lt;/svg&gt;&lt;/div&gt;
+      &lt;div style=&quot;width: 24px; height: 24px;&quot;&gt;
+        &lt;&lt;if $level3_stars gte 2&gt;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z&quot; fill=&quot;#ffd32c&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot; /&gt;&lt;/svg&gt;
+        &lt;&lt;else&gt;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z&quot; fill=&quot;#ffffff&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot; opacity=&quot;0.3&quot; /&gt;&lt;/svg&gt;&lt;&lt;/if&gt;&gt;
+      &lt;/div&gt;
+      &lt;div style=&quot;width: 24px; height: 24px;&quot;&gt;
+        &lt;&lt;if $level3_stars eq 3&gt;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z&quot; fill=&quot;#ffd32c&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot; /&gt;&lt;/svg&gt;
+        &lt;&lt;else&gt;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z&quot; fill=&quot;#ffffff&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot; opacity=&quot;0.3&quot; /&gt;&lt;/svg&gt;&lt;&lt;/if&gt;&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;&lt;/if&gt;&gt;
+
+&lt;/div&gt;
+
 
       
       
@@ -3027,18 +3139,144 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
       &lt;div class=&quot;level-node square-node locked&quot; style=&quot;top: 3300px; left: 210px;&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot; class=&quot;lock-icon&quot;&gt;&lt;path d=&quot;M12 2c-2.76 0-5 2.24-5 5v3H6c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2h-1V7c0-2.76-2.24-5-5-5zm-3 5c0-1.66 1.34-3 3-3s3 1.34 3 3v3H9V7zm3 9c-.55 0-1-.45-1-1v-2c0-.55.45-1 1-1s1 .45 1 1v2c0 .55-.45 1-1 1z&quot; fill=&quot;#7f8d8d&quot;/&gt;&lt;/svg&gt;&lt;/div&gt;
 
     &lt;/div&gt;
+    
+    
+    
+    
+    
+    
+    
+
+
+
+&lt;!-- ИДЕАЛЬНОЕ ОКНО БЛОКИРОВКИ: ЧИСТЫЙ CSS-ОТСТУП, СОБАЧКА НАМЕРТВО НА ПОЛУ --&gt;
+&lt;div id=&quot;global-energy-alert&quot; style=&quot;display: none; position: absolute !important; top: 0 !important; left: 0 !important; width: 100% !important; height: 100% !important; background: rgba(0,0,0,0.5) !important; z-index: 999999 !important; box-sizing: border-box !important;&quot;&gt;
+  
+  &lt;style&gt;
+    /* Плавное взлетание и таяние букв Zzz */
+    @keyframes balloonZzz {
+      0% { transform: translate(0, 0) scale(0.6); opacity: 0; }
+      30% { opacity: 0.9; }
+      100% { transform: translate(25px, -50px) scale(1.1); opacity: 0; }
+    }
+    .balloon-zzz-1 { animation: balloonZzz 3.2s infinite linear; }
+    .balloon-zzz-2 { animation: balloonZzz 3.2s infinite linear; animation-delay: 1.1s; }
+    .balloon-zzz-3 { animation: balloonZzz 3.2s infinite linear; animation-delay: 2.2s; }
+
+    /* Мягкое дыхание спящей собачки-шарика */
+    @keyframes balloonBreathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.02) translateY(-0.5px); }
+    }
+    .dog-balloon-sleep {
+      animation: balloonBreathe 2.5s infinite ease-in-out;
+      transform-origin: bottom center;
+    }
+  &lt;/style&gt;
+
+  &lt;!-- Центральная карточка на экране телефона --&gt;
+  &lt;div style=&quot;width: calc(100% - 30px) !important; max-width: 285px !important; background: #ffffff !important; border: 4px solid #000000 !important; border-radius: 16px !important; padding: 18px !important; box-shadow: 0 6px 0 rgba(0,0,0,0.2) !important; font-family: sans-serif !important; text-align: center !important; color: #000000 !important; box-sizing: border-box !important; position: absolute !important; top: 50% !important; left: 50% !important; transform: translate(-50%, -50%) !important;&quot;&gt;
+    
+    &lt;!-- ЗАГОЛОВОК --&gt;
+    &lt;div style=&quot;font-size: 20px; font-weight: bold; margin-bottom: 12px; font-family: sans-serif; letter-spacing: 0.5px;&quot;&gt;⚡ НЕТ ЭНЕРГИИ&lt;/div&gt;
+    
+    &lt;!-- ЦЕНТРАЛЬНЫЙ БЛОК: КРУГ ПО ЦЕНТРУ --&gt;
+    &lt;div style=&quot;width: 100%; height: 145px; position: relative; margin-bottom: 16px; background: #f8f9fa; border: 3px solid #000000; border-radius: 12px; overflow: hidden; display: flex !important; align-items: center !important; justify-content: center !important;&quot;&gt;
+      
+      &lt;!-- Фиолетовый круг-подложка лежит на заднем плане ровно по центру --&gt;
+      &lt;div style=&quot;position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 124px; height: 124px; background: #9b59b6; opacity: 0.12; border-radius: 50%; pointer-events: none;&quot;&gt;&lt;/div&gt;
+
+      &lt;!-- КАРТИНКА СОБАЧКИ: БОЛЬШЕ НЕТ КАПРИЗНЫХ TRANSLATE! ВСЁ ПРИЖАТО ЧЕРЕЗ MARGIN-BOTTOM ВНИЗ К ЛИНИИ --&gt;
+      &lt;svg viewBox=&quot;0 0 200 115&quot; style=&quot;width: 140% !important; height: auto !important; display: block; overflow: visible; margin-bottom: -4px !important; z-index: 10; position: relative;&quot;&gt;
+        
+        &lt;!-- Чистая структура воздушной собачки (без внешних ломающих scale) --&gt;
+        &lt;g class=&quot;dog-balloon-sleep&quot; stroke=&quot;#000000&quot; stroke-width=&quot;3.5&quot; stroke-linejoin=&quot;round&quot; stroke-linecap=&quot;round&quot;&gt;
+          
+          &lt;!-- 1. Дальние лапки --&gt;
+          &lt;ellipse cx=&quot;140&quot; cy=&quot;103&quot; rx=&quot;7&quot; ry=&quot;14&quot; fill=&quot;#2980b9&quot; transform=&quot;rotate(75 140 103)&quot; /&gt;
+          &lt;ellipse cx=&quot;78&quot; cy=&quot;103&quot; rx=&quot;6&quot; ry=&quot;13&quot; fill=&quot;#2980b9&quot; transform=&quot;rotate(85 78 103)&quot; /&gt;
+          
+          &lt;!-- 2. Хвостик-сосисочка сзади --&gt;
+          &lt;ellipse cx=&quot;160&quot; cy=&quot;73&quot; rx=&quot;5&quot; ry=&quot;11&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(45 160 73)&quot; /&gt;
+          
+          &lt;!-- 3. Большая круглая попа-шарик --&gt;
+          &lt;ellipse cx=&quot;136&quot; cy=&quot;83&quot; rx=&quot;17&quot; ry=&quot;14&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(-5 136 83)&quot; /&gt;
+          
+          &lt;!-- 4. Длинное сосисочное тело --&gt;
+          &lt;ellipse cx=&quot;104&quot; cy=&quot;89&quot; rx=&quot;20&quot; ry=&quot;11&quot; fill=&quot;#3498db&quot; /&gt;
+          
+          &lt;!-- 5. Ближняя задняя лапка --&gt;
+          &lt;ellipse cx=&quot;132&quot; cy=&quot;101&quot; rx=&quot;7&quot; ry=&quot;15&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(80 132 101)&quot; /&gt;
+          
+          &lt;!-- 6. Шея --&gt;
+          &lt;ellipse cx=&quot;78&quot; cy=&quot;81&quot; rx=&quot;7&quot; ry=&quot;11&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(30 78 81)&quot; /&gt;
+          
+          &lt;!-- 7. Ближняя передняя лапка --&gt;
+          &lt;ellipse cx=&quot;76&quot; cy=&quot;101&quot; rx=&quot;7&quot; ry=&quot;15&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(95 76 101)&quot; /&gt;
+          
+          &lt;!-- 8. Ушки-сосисочки --&gt;
+          &lt;ellipse cx=&quot;82&quot; cy=&quot;62&quot; rx=&quot;7&quot; ry=&quot;13&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(40 82 62)&quot; /&gt;
+          &lt;ellipse cx=&quot;90&quot; cy=&quot;66&quot; rx=&quot;6.5&quot; ry=&quot;12&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(55 90 66)&quot; /&gt;
+          
+          &lt;!-- 9. Мордочка улеглась на лапки --&gt;
+          &lt;ellipse cx=&quot;59&quot; cy=&quot;87&quot; rx=&quot;13&quot; ry=&quot;9&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(15 59 87)&quot; /&gt;
+          
+          &lt;!-- Чёрный носик-пипка на самом кончике --&gt;
+          &lt;circle cx=&quot;47&quot; cy=&quot;91&quot; r=&quot;4.5&quot; fill=&quot;#000000&quot; /&gt;
+          
+        &lt;/g&gt;
+        
+        &lt;!-- ГЛЯНЦЕВЫЕ БЛИКИ --&gt;
+        &lt;g fill=&quot;#ffffff&quot; opacity=&quot;0.6&quot; pointer-events=&quot;none&quot;&gt;
+          &lt;ellipse cx=&quot;132&quot; cy=&quot;74&quot; rx=&quot;8&quot; ry=&quot;2.5&quot; transform=&quot;rotate(-5 132 74)&quot; /&gt;
+          &lt;ellipse cx=&quot;100&quot; cy=&quot;83&quot; rx=&quot;10&quot; ry=&quot;2&quot; /&gt;
+          &lt;ellipse cx=&quot;57&quot; cy=&quot;82&quot; rx=&quot;5&quot; ry=&quot;1.5&quot; transform=&quot;rotate(15 57 82)&quot; /&gt;
+          &lt;ellipse cx=&quot;78&quot; cy=&quot;56&quot; rx=&quot;4&quot; ry=&quot;1.5&quot; transform=&quot;rotate(40 78 56)&quot; /&gt;
+          &lt;ellipse cx=&quot;136&quot; cy=&quot;99&quot; rx=&quot;5&quot; ry=&quot;1.5&quot; transform=&quot;rotate(80 136 99)&quot; /&gt;
+        &lt;/g&gt;
+
+        &lt;!-- ОБЪЁМНЫЕ НЕОНОВЫЕ БУКВЫ ХРАПА Zzz --&gt;
+        &lt;text x=&quot;110&quot; y=&quot;55&quot; class=&quot;balloon-zzz-1&quot; font-family=&quot;&#39;Arial Black&#39;, sans-serif&quot; font-weight=&quot;900&quot; font-size=&quot;18px&quot; fill=&quot;#7cd1ff&quot; stroke=&quot;#000&quot; stroke-width=&quot;2&quot;&gt;Z&lt;/text&gt;
+        &lt;text x=&quot;121&quot; y=&quot;60&quot; class=&quot;balloon-zzz-2&quot; font-family=&quot;&#39;Arial Black&#39;, sans-serif&quot; font-weight=&quot;900&quot; font-size=&quot;14px&quot; fill=&quot;#7cd1ff&quot; stroke=&quot;#000&quot; stroke-width=&quot;2&quot;&gt;z&lt;/text&gt;
+        &lt;text x=&quot;130&quot; y=&quot;64&quot; class=&quot;balloon-zzz-3&quot; font-family=&quot;&#39;Arial Black&#39;, sans-serif&quot; font-weight=&quot;900&quot; font-size=&quot;11px&quot; fill=&quot;#7cd1ff&quot; stroke=&quot;#000&quot; stroke-width=&quot;2&quot;&gt;z&lt;/text&gt;
+      &lt;/svg&gt;
+    &lt;/div&gt;
+
+    &lt;!-- КНОПКА 1: КУПИТЬ ЗА КРИСТАЛЛЫ --&gt;
+    &lt;div style=&quot;margin-bottom: 8px; background: #9b59b6; border: 2px solid #000000; border-radius: 8px; padding: 8px; font-weight: bold; color: white; text-align: center; cursor: pointer; font-size: 13px; box-shadow: 0 2px 0 #000;&quot; onclick=&quot;
+      if (State.variables.crystals &gt;= 50) {
+        State.variables.crystals = State.variables.crystals - 50;
+        State.variables.energy = 5;
+        $(&#39;#global-energy-alert&#39;).css(&#39;display&#39;, &#39;none&#39;);
+        Engine.play(SimpleStory.get(passage()));
+      } else {
+        alert(&#39;Недостаточно кристаллов!&#39;);
+      }
+    &quot;&gt;
+      Купить энергию за 50 💎
+    &lt;/div&gt;
+
+    &lt;!-- КНОПКА 2: ПОСМОТРЕТЬ РЕКЛАМУ --&gt;
+    &lt;div style=&quot;margin-bottom: 14px; background: #4cd137; border: 2px solid #000000; border-radius: 8px; padding: 8px; font-weight: bold; color: white; text-align: center; cursor: pointer; font-size: 13px; box-shadow: 0 2px 0 #000;&quot; onclick=&quot;
+      State.variables.energy = Math.min(5, State.variables.energy + 1);
+      $(&#39;#global-energy-alert&#39;).css(&#39;display&#39;, &#39;none&#39;);
+      Engine.play(SimpleStory.get(passage()));
+    &quot;&gt;
+      Смотреть рекламу (+1 ⚡)
+    &lt;/div&gt;
+    
+    &lt;!-- КНОПКА 3: ЗАКРЫТЬ --&gt;
+    &lt;div style=&quot;font-size: 12px; font-weight: bold; color: #7f8c8d; text-decoration: underline; cursor: pointer;&quot; onclick=&quot;$(&#39;#global-energy-alert&#39;).css(&#39;display&#39;, &#39;none&#39;)&quot;&gt;
+      Вернуться к карте
+    &lt;/div&gt;
   &lt;/div&gt;
 
 &lt;/div&gt;
 
-
-
-
-
-
-
-
+&lt;/div&gt; &lt;!-- Закрывает мобильный контейнер --&gt;
+&lt;/div&gt; &lt;!-- Закрывает контент --&gt;
 &lt;&lt;/nobr&gt;&gt;
+
 
 </tw-passagedata><tw-passagedata pid="7" name="Level2_Intro" tags="" position="700,700" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;game-wrapper&quot;&gt;
@@ -3173,7 +3411,12 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
 
       &lt;!-- ЖЕСТКИЙ ФИКС: Кнопка теперь прыгает СТРОГО на Игровую Зону 2 уровня! --&gt;
       &lt;div style=&quot;flex-grow: 1 !important;&quot;&gt;
-        &lt;&lt;button &quot;START&quot; &quot;StartGame_Level2&quot;&gt;&gt;&lt;&lt;/button&gt;&gt;
+&lt;&lt;button &quot;START&quot; &quot;StartGame_Level2&quot;&gt;&gt;
+  &lt;&lt;set $energy = Math.max(0, $energy - 1)&gt;&gt;
+&lt;&lt;/button&gt;&gt;
+
+
+
       &lt;/div&gt;
 
     &lt;/div&gt;
@@ -4057,7 +4300,11 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
       
             &lt;!-- КНОПКА СТАРТ ДЛЯ ЗАПУСКА НАШЕГО ТРЕТЬЕГО РАУНДА --&gt;
       &lt;div style=&quot;flex-grow: 1 !important;&quot;&gt;
-        &lt;&lt;button &quot;START&quot; &quot;StartGame_Level3&quot;&gt;&gt;&lt;&lt;/button&gt;&gt;
+&lt;&lt;button &quot;START&quot; &quot;StartGame_Level3&quot;&gt;&gt;
+  &lt;&lt;set $energy = Math.max(0, $energy - 1)&gt;&gt;
+&lt;&lt;/button&gt;&gt;
+
+
       &lt;/div&gt;
 
 
