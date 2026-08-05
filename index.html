@@ -2023,11 +2023,11 @@ html, body, #story, .passage, #passages {
 
 
 
-</style><script role="script" id="twine-user-script" type="text/twine-javascript">// НАДЁЖНЫЙ ТОЧЕЧНЫЙ ФИКС ДЛЯ TELEGRAM-БОТА (БЕЗ МЕРЦАНИЯ ЭКРАНА)
-// Скрипт срабатывает строго при клике по Собачке или Мячу на карте!
-$(document).on('click', '.level-dog-node, .level-ball-node', function (e) {
+</style><script role="script" id="twine-user-script" type="text/twine-javascript">// МЕГА-ФИКС ДЛЯ TELEGRAM WEBAPP: Железный переход по карте уровней
+$(document).on('pointerdown click', '[data-passage]', function (e) {
   e.preventDefault();
   e.stopPropagation();
+  
   var passageName = $(this).attr('data-passage');
   if (passageName) {
     Engine.play(passageName);
@@ -2764,6 +2764,13 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
   &lt;!-- ЦЕНТРАЛЬНЫЙ БЛОК: Скроллящаяся огромная карта уровней --&gt;
   &lt;div class=&quot;mobile-menu-content vertical-scroll&quot; style=&quot;height: calc(100% - 42px) !important; overflow-y: scroll !important;&quot;&gt;
     &lt;h1 class=&quot;frozen-level-title&quot; style=&quot;font-size: 26px !important; margin: 20px 0 10px 0 !important; text-align: center !important; width: 100%;&quot;&gt;SELECT LEVEL&lt;/h1&gt;
+    
+    
+    &lt;!-- ТЕСТОВЫЙ КРАСНЫЙ КВАДРАТ: ТЕПЕРЬ СТРОГО ПОД НАДПИСЬЮ SELECT LEVEL НА ТЕЛЕФОНЕ --&gt;
+&lt;div style=&quot;width: 30px; height: 35px; margin: 10px auto !important; background: red; border: 3px solid #000; border-radius: 6px; z-index: 99999; position: relative;&quot;&gt;&lt;/div&gt;
+
+    
+    
     
     &lt;div class=&quot;map-absolute-canvas&quot;&gt;
       
