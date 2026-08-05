@@ -2023,7 +2023,16 @@ html, body, #story, .passage, #passages {
 
 
 
-</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="StartGame" tags="" position="900,500" size="100,100">&lt;&lt;nobr&gt;&gt;
+</style><script role="script" id="twine-user-script" type="text/twine-javascript">// ЖЕСТКИЙ ГЛОБАЛЬНЫЙ ФИКС ДЛЯ TELEGRAM-БОТА
+// Ловим тапы по всей карте и принудительно запускаем переходы SugarCube!
+$(document).on('pointerdown', '[data-passage]', function (e) {
+  e.stopPropagation();
+  var passageName = $(this).attr('data-passage');
+  if (passageName) {
+    Engine.play(passageName);
+  }
+});
+</script><tw-passagedata pid="1" name="StartGame" tags="" position="900,500" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;game-wrapper&quot;&gt;
   
   &lt;!-- ВЕРХНЯЯ БЕЛАЯ ПАНЕЛЬ ИНТЕРФЕЙСА --&gt;
@@ -2832,49 +2841,23 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
       &lt;/div&gt;
        
 
-        
-
-      &lt;!-- УРОВЕНЬ 2: ВЕКТОРНАЯ СОБАЧКА — ТЕПЕРЬ СТИЛЬНОГО НЕЖНО-ГОЛУБОГО ЦВЕТА --&gt;
+&lt;!-- УРОВЕНЬ 2: ВЕКТОРНАЯ СОБАЧКА — ТВОЙ ОРИГИНАЛЬНЫЙ РАБОЧИЙ КОД --&gt;
       &lt;div class=&quot;level-dog-node&quot; data-passage=&quot;Level2_Intro&quot; style=&quot;position: absolute !important; top: 215px !important; left: 220px !important; width: 143px !important; height: 124px !important; overflow: visible !important; display: flex !important; align-items: center !important; justify-content: center !important; background: none !important; border: none !important; box-shadow: none !important; z-index: 20 !important; cursor: pointer !important;&quot;&gt;
         
         &lt;svg viewBox=&quot;0 0 120 100&quot; style=&quot;width: 100% !important; height: 100% !important; display: block !important; filter: drop-shadow(0px 7px 0px rgba(41,128,185,0.3)) !important; transition: transform 0.1s ease !important; overflow: visible !important;&quot; onmouseover=&quot;this.style.transform=&#39;scale(1.08) rotate(2deg)&#39;&quot; onmouseout=&quot;this.style.transform=&#39;scale(1) rotate(0deg)&#39;&quot;&gt;
           &lt;g stroke=&quot;#000000&quot; stroke-width=&quot;3&quot; stroke-linejoin=&quot;round&quot; stroke-linecap=&quot;round&quot;&gt;
-            
-            &lt;!-- 1. ЗАДНИЙ ПЛАН (Все элементы перекрашены в наш фирменный голубой fill=&quot;#3498db&quot;) --&gt;
-            &lt;!-- Задняя дальняя лапка --&gt;
             &lt;ellipse cx=&quot;83&quot; cy=&quot;74&quot; rx=&quot;8&quot; ry=&quot;18&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(-5 83 74)&quot; /&gt;
-            
-            &lt;!-- Передняя дальняя лапа --&gt;
             &lt;ellipse cx=&quot;50&quot; cy=&quot;73&quot; rx=&quot;8&quot; ry=&quot;17&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(10 50 73)&quot; /&gt;
-            
-            &lt;!-- Хвостик --&gt;
             &lt;ellipse cx=&quot;91&quot; cy=&quot;45&quot; rx=&quot;6&quot; ry=&quot;13&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(40 91 45)&quot; /&gt;
-            
-            &lt;!-- 2. ПЕРЕДНИЙ ПЛАН --&gt;
-            &lt;!-- Задняя ближняя лапка --&gt;
             &lt;ellipse cx=&quot;75&quot; cy=&quot;74&quot; rx=&quot;8.5&quot; ry=&quot;18.5&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(5 75 74)&quot; /&gt;
-            
-            &lt;!-- Тело — одна большая цельная сосисочка --&gt;
             &lt;ellipse cx=&quot;65&quot; cy=&quot;57&quot; rx=&quot;19&quot; ry=&quot;11&quot; fill=&quot;#3498db&quot; /&gt;
-            
-            &lt;!-- Передняя ближняя лапа --&gt;
             &lt;ellipse cx=&quot;43&quot; cy=&quot;71&quot; rx=&quot;9&quot; ry=&quot;19&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(15 43 71)&quot; /&gt;
-            
-            &lt;!-- Шея --&gt;
             &lt;ellipse cx=&quot;44&quot; cy=&quot;40&quot; rx=&quot;7.5&quot; ry=&quot;13.5&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(-15 44 40)&quot; /&gt;
-            
-            &lt;!-- Уши --&gt;
             &lt;ellipse cx=&quot;47&quot; cy=&quot;15&quot; rx=&quot;8.5&quot; ry=&quot;15&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(15 47 15)&quot; /&gt;
-            &lt;!-- Левое ближнее ухо --&gt;
             &lt;ellipse cx=&quot;38&quot; cy=&quot;14&quot; rx=&quot;9&quot; ry=&quot;16&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(-10 38 14)&quot; /&gt;
-            
-            &lt;!-- Мордочка --&gt;
             &lt;ellipse cx=&quot;24&quot; cy=&quot;33&quot; rx=&quot;13&quot; ry=&quot;9.5&quot; fill=&quot;#3498db&quot; transform=&quot;rotate(-5 24 33)&quot; /&gt;
-            &lt;!-- Носик-пипка --&gt;
             &lt;path d=&quot;M 10,32 C 8,29 5,30 5,33 C 5,36 8,37 10,34 Z&quot; fill=&quot;#3498db&quot; /&gt;
           &lt;/g&gt;
-          
-          &lt;!-- ГЛЯНЦЕВЫЕ БЛИКИ (Остались белыми для объема) --&gt;
           &lt;g fill=&quot;#ffffff&quot; opacity=&quot;0.6&quot;&gt;
             &lt;ellipse cx=&quot;23&quot; cy=&quot;28&quot; rx=&quot;6&quot; ry=&quot;2&quot; transform=&quot;rotate(-5 23 28)&quot; /&gt; 
             &lt;ellipse cx=&quot;34&quot; cy=&quot;10&quot; rx=&quot;4&quot; ry=&quot;2&quot; transform=&quot;rotate(-10 34 10)&quot; /&gt; 
@@ -2885,7 +2868,6 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
           &lt;/g&gt;
         &lt;/svg&gt;
 
-        &lt;!-- БЛОК ВЕКТОРНЫХ ЗВЁЗД ПОД ЛАПКАМИ НАШЕЙ СОБАЧКИ --&gt;
         &lt;&lt;if $level2_stars gte 1&gt;&gt;
           &lt;div style=&quot;position: absolute !important; bottom: -20px !important; left: 50% !important; transform: translateX(-50%) !important; width: auto !important; display: flex !important; gap: 4px !important; pointer-events: none !important; z-index: 30 !important;&quot;&gt;
             &lt;div style=&quot;width: 26px; height: 24px;&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z&quot; fill=&quot;#ffd32c&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot; /&gt;&lt;/svg&gt;&lt;/div&gt;
@@ -2899,14 +2881,12 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
             &lt;/div&gt;
           &lt;/div&gt;
         &lt;&lt;/if&gt;&gt;
-
       &lt;/div&gt;
 
 
 
 
-
-       &lt;!-- УРОВЕНЬ 3: ВЕКТОРНЫЙ ПЛЯЖНЫЙ МЯЧ — БАГ С ЗАКРАШЕННЫМИ ЗВЁЗДАМИ-ПРИЗРАКАМИ ИСПРАВЛЕН --&gt;
+&lt;!-- УРОВЕНЬ 3: ВЕКТОРНЫЙ ПЛЯЖНЫЙ МЯЧ — ТВОЙ ОРИГИНАЛЬНЫЙ РАБОЧИЙ КОД --&gt;
       &lt;div class=&quot;level-ball-node&quot; data-passage=&quot;Level3_Intro&quot; style=&quot;position: absolute !important; top: 350px !important; left: 50px !important; width: 130px !important; height: 130px !important; overflow: visible !important; display: flex !important; align-items: center !important; justify-content: center !important; background: none !important; border: none !important; box-shadow: none !important; z-index: 20 !important; cursor: pointer !important;&quot;&gt;
         
         &lt;style&gt;
@@ -2914,53 +2894,34 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
             0%, 100% { transform: translateY(0px) scale(1); }
             50% { transform: translateY(-12px) scale(0.98); }
           }
-          .anim-ball-bounce {
-            animation: beachBallBounce 3.5s infinite ease-in-out;
-          }
-
+          .anim-ball-bounce { animation: beachBallBounce 3.5s infinite ease-in-out; }
           @keyframes ballShadowPulse {
             0%, 100% { transform: scale(1); opacity: 0.25; }
             50% { transform: scale(0.75); opacity: 0.1; }
           }
-          .anim-ball-shadow-only {
-            animation: ballShadowPulse 3.5s infinite ease-in-out;
-          }
+          .anim-ball-shadow-only { animation: ballShadowPulse 3.5s infinite ease-in-out; }
         &lt;/style&gt;
 
-        &lt;!-- МЯЧИК (Лениво подпрыгивает вверх-вниз) --&gt;
         &lt;svg class=&quot;anim-ball-bounce&quot; viewBox=&quot;0 0 200 200&quot; style=&quot;width: 100% !important; height: 100% !important; display: block !important; transition: transform 0.1s ease !important; overflow: visible !important;&quot; onmouseover=&quot;this.style.transform=&#39;scale(1.08) rotate(5deg)&#39;&quot; onmouseout=&quot;this.style.transform=&#39;scale(1) rotate(0deg)&#39;&quot;&gt;
-          &lt;defs&gt;
-            &lt;clipPath id=&quot;ball-clip-clean-final&quot;&gt;
-              &lt;circle cx=&quot;100&quot; cy=&quot;100&quot; r=&quot;94&quot; /&gt;
-            &lt;/clipPath&gt;
-          &lt;/defs&gt;
-
+          &lt;defs&gt;&lt;clipPath id=&quot;ball-clip-clean-final&quot;&gt;&lt;circle cx=&quot;100&quot; cy=&quot;100&quot; r=&quot;94&quot; /&gt;&lt;/clipPath&gt;&lt;/defs&gt;
           &lt;circle cx=&quot;100&quot; cy=&quot;100&quot; r=&quot;94&quot; fill=&quot;#ffffff&quot; stroke=&quot;#000000&quot; stroke-width=&quot;5&quot; /&gt;
-
           &lt;g clip-path=&quot;url(#ball-clip-clean-final)&quot;&gt;
             &lt;path d=&quot;M 132,77 C 98,60 55,50 10,66 A 94,94 0 0,0 15,145 C 55,122 100,95 132,77 Z&quot; fill=&quot;#ffea79&quot; /&gt;
             &lt;path d=&quot;M 132,77 C 150,90 170,102 193,114 A 94,94 0 0,1 148,181 C 145,150 140,115 132,77 Z&quot; fill=&quot;#fca1a2&quot; /&gt;
             &lt;path d=&quot;M 132,77 C 122,53 113,28 105,6 A 94,94 0 0,1 161,29 C 151,45 141,61 132,77 Z&quot; fill=&quot;#8ec4e6&quot; /&gt;
           &lt;/g&gt;
-
           &lt;g stroke=&quot;#000000&quot; stroke-width=&quot;5&quot; stroke-linecap=&quot;round&quot; fill=&quot;none&quot; clip-path=&quot;url(#ball-clip-clean-final)&quot;&gt;
-            &lt;path d=&quot;M 132,77 C 98,60 55,50 10,66&quot; /&gt;
-            &lt;path d=&quot;M 132,77 C 60,120 40,130 24,142&quot; /&gt;
-            &lt;path d=&quot;M 132,77 C 145,115 150,150 148,181&quot; /&gt;
-            &lt;path d=&quot;M 132,77 C 150,90 170,102 193,114&quot; /&gt;
-            &lt;path d=&quot;M 132,77 C 122,53 113,28 105,6&quot; /&gt;
-            &lt;path d=&quot;M 132,77 C 151,45 141,61 161,29&quot; /&gt;
+            &lt;path d=&quot;M 132,77 C 98,60 55,50 10,66&quot; /&gt;&lt;path d=&quot;M 132,77 C 60,120 40,130 24,142&quot; /&gt;
+            &lt;path d=&quot;M 132,77 C 145,115 150,150 148,181&quot; /&gt;&lt;path d=&quot;M 132,77 C 150,90 170,102 193,114&quot; /&gt;
+            &lt;path d=&quot;M 132,77 C 122,53 113,28 105,6&quot; /&gt;&lt;path d=&quot;M 132,77 C 151,45 141,61 161,29&quot; /&gt;
           &lt;/g&gt;
-
           &lt;circle cx=&quot;132&quot; cy=&quot;77&quot; r=&quot;20&quot; fill=&quot;#ffffff&quot; stroke=&quot;#000000&quot; stroke-width=&quot;5&quot; /&gt;
           &lt;path d=&quot;M 45,35 Q 75,15 115,22 Q 85,38 55,55 Z&quot; fill=&quot;#ffffff&quot; opacity=&quot;0.4&quot; /&gt;
           &lt;circle cx=&quot;100&quot; cy=&quot;100&quot; r=&quot;94&quot; fill=&quot;none&quot; stroke=&quot;#000000&quot; stroke-width=&quot;5&quot; /&gt;
         &lt;/svg&gt;
 
-        &lt;!-- АНИМИРОВАННАЯ ТЕНЬ ПОД МЯЧОМ (Теперь это просто чистая упругая теневая овальная плашка) --&gt;
         &lt;div class=&quot;anim-ball-shadow-only&quot; style=&quot;position: absolute !important; bottom: -10px !important; left: 50% !important; transform: translateX(-50%) !important; width: 70px !important; height: 10px !important; background: rgba(0,0,0,0.2) !important; border-radius: 50% !important; pointer-events: none !important; z-index: 10 !important;&quot;&gt;&lt;/div&gt;
 
-        &lt;!-- НАСТОЯЩИЙ ЖЕСТКИЙ БЛОК ЗВЁЗД: Отрезан от тени и появится ТОЛЬКО при победе в 3 раунде! --&gt;
         &lt;&lt;if $level3_stars gte 1&gt;&gt;
           &lt;div style=&quot;position: absolute !important; bottom: -24px !important; left: 50% !important; transform: translateX(-50%) !important; width: auto !important; display: flex !important; gap: 4px !important; pointer-events: none !important; z-index: 30 !important;&quot;&gt;
             &lt;div style=&quot;width: 24px; height: 24px;&quot;&gt;&lt;svg viewBox=&quot;0 0 24 24&quot;&gt;&lt;path d=&quot;M12 .587l3.668 7.431 8.2 1.192-5.934 5.787 1.4 8.168L12 18.896l-7.334 3.857 1.4-8.168L.132 9.21l8.2-1.192z&quot; fill=&quot;#ffd32c&quot; stroke=&quot;#000000&quot; stroke-width=&quot;2&quot; /&gt;&lt;/svg&gt;&lt;/div&gt;
@@ -2974,9 +2935,9 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
             &lt;/div&gt;
           &lt;/div&gt;
         &lt;&lt;/if&gt;&gt;
-
       &lt;/div&gt;
 
+  
 
       
       
