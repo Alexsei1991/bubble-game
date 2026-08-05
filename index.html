@@ -2234,6 +2234,14 @@ window.currentMusicTempo = 650;
 
 function playNextMusicNote() {
   if (window.isGameMuted) return;
+  
+  // НАДЁЖНЫЙ ФИКС ДЛЯ TELEGRAM-БОТА: Если контекст заблокирован смартфоном,
+  // мы плавно пропускаем такт и ждем первого касания экрана, предотвращая Script Error!
+  if (window.gameAudioCtx &amp;&amp; window.gameAudioCtx.state === &#39;suspended&#39;) {
+    window.gameMusicTimeout = setTimeout(playNextMusicNote, window.currentMusicTempo);
+    return;
+  }
+
   try {
     const ctx = window.gameAudioCtx;
     if (ctx &amp;&amp; ctx.state !== &#39;suspended&#39;) {
@@ -2249,6 +2257,7 @@ function playNextMusicNote() {
   } catch (e) {}
   window.gameMusicTimeout = setTimeout(playNextMusicNote, window.currentMusicTempo);
 }
+
 
 function start8BitMusic() { if (!window.gameMusicTimeout) playNextMusicNote(); }
 function stop8BitMusic() { clearTimeout(window.gameMusicTimeout); window.gameMusicTimeout = null; }
@@ -3403,6 +3412,14 @@ window.currentMusicTempo = 650;
 
 function playNextMusicNote() {
   if (window.isGameMuted) return;
+  
+  // НАДЁЖНЫЙ ФИКС ДЛЯ TELEGRAM-БОТА: Если контекст заблокирован смартфоном,
+  // мы плавно пропускаем такт и ждем первого касания экрана, предотвращая Script Error!
+  if (window.gameAudioCtx &amp;&amp; window.gameAudioCtx.state === &#39;suspended&#39;) {
+    window.gameMusicTimeout = setTimeout(playNextMusicNote, window.currentMusicTempo);
+    return;
+  }
+
   try {
     const ctx = window.gameAudioCtx;
     if (ctx &amp;&amp; ctx.state !== &#39;suspended&#39;) {
@@ -3418,6 +3435,7 @@ function playNextMusicNote() {
   } catch (e) {}
   window.gameMusicTimeout = setTimeout(playNextMusicNote, window.currentMusicTempo);
 }
+
 
 function start8BitMusic() { if (!window.gameMusicTimeout) playNextMusicNote(); }
 function stop8BitMusic() { clearTimeout(window.gameMusicTimeout); window.gameMusicTimeout = null; }
@@ -4290,12 +4308,21 @@ const superRelaxMelody = [
 ];
 window.currentMusicTempo = 650;
 
+
+
+
 function playNextMusicNote() {
   if (window.gameMusicTimeout) clearTimeout(window.gameMusicTimeout);
   if (!window.gameActive) return;
   
+  // ЮВЕЛИРНЫЙ ФИКС ДЛЯ TELEGRAM: Если аудио-контекст заблокирован телефоном, 
+  // мы просто пропускаем ноту и ждем первого тапа, предотвращая вылет Script Error!
+  if (window.gameAudioCtx &amp;&amp; window.gameAudioCtx.state === &#39;suspended&#39;) {
+    window.gameMusicTimeout = setTimeout(playNextMusicNote, window.currentMusicTempo);
+    return;
+  }
+  
   if (!State.variables.isPaused &amp;&amp; !State.variables.isGameMuted) {
-    awakeAudio();
     try {
       const ctx = window.gameAudioCtx; const osc = ctx.createOscillator(); const gain = ctx.createGain();
       let freq = superRelaxMelody[musicNoteIndex];
@@ -4307,6 +4334,11 @@ function playNextMusicNote() {
   }
   window.gameMusicTimeout = setTimeout(playNextMusicNote, window.currentMusicTempo);
 }
+
+
+
+
+
 
 function start8BitMusic() { if (!window.gameMusicTimeout) playNextMusicNote(); }
 function stop8BitMusic() { clearTimeout(window.gameMusicTimeout); window.gameMusicTimeout = null; }
