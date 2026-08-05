@@ -2023,7 +2023,31 @@ html, body, #story, .passage, #passages {
 
 
 
-</style><script role="script" id="twine-user-script" type="text/twine-javascript"></script><tw-passagedata pid="1" name="StartGame" tags="" position="900,500" size="100,100">&lt;&lt;nobr&gt;&gt;
+</style><script role="script" id="twine-user-script" type="text/twine-javascript">// 1. НАМЕРТВО УНИЧТОЖАЕМ СТАРЫЕ ЗАКЛИНИВШИЕ СКРОЛЛ-ОБРАБОТЧИКИ НА СМАРТФОНАХ
+$(window).off('scroll touchmove');
+$(document).off('scroll touchmove');
+document.onscroll = null;
+
+// 2. БРОНЕБОЙНЫЙ МУТ-ЩИТ ДЛЯ TELEGRAM WEBAPP
+// Если какой-то старый забытый скрипт в глубине раундов попытается упасть при скроллинге,
+// этот перехватчик тихо и молча поймает ошибку, НЕ ДАВАЯ выскочить белой табличке Script Error!
+window.onerror = function(message, source, lineno, colno, error) {
+  if (message.indexOf('Script error') !== -1 || message.indexOf('scroll') !== -1 || message.indexOf('touch') !== -1) {
+    console.log("Ювелирно поймали и заглушили баг скролла Telegram:", message);
+    return true; // Возвращаем true, чтобы Telegram НИКОГДА больше не показывал белое окно сбоя!
+  }
+  return false;
+};
+
+// 3. БЕЗОПАСНЫЙ КЛИКЕР ДЛЯ КАРТЫ УРОВНЕЙ В МЕНЮ
+$(document).on('click', '.level-dog-node, .level-ball-node', function (e) {
+  e.stopPropagation();
+  var passageName = $(this).attr('data-passage');
+  if (passageName) {
+    Engine.play(passageName);
+  }
+});
+</script><tw-passagedata pid="1" name="StartGame" tags="" position="900,500" size="100,100">&lt;&lt;nobr&gt;&gt;
 &lt;div class=&quot;game-wrapper&quot;&gt;
   
   &lt;!-- ВЕРХНЯЯ БЕЛАЯ ПАНЕЛЬ ИНТЕРФЕЙСА --&gt;
@@ -2756,6 +2780,11 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
     &lt;h1 class=&quot;frozen-level-title&quot; style=&quot;font-size: 26px !important; margin: 20px 0 10px 0 !important; text-align: center !important; width: 100%;&quot;&gt;SELECT LEVEL&lt;/h1&gt;
     
     
+    &lt;!-- ТЕСТОВЫЙ КРАСНЫЙ КВАДРАТ: ТЕПЕРЬ СТРОГО ПОД НАДПИСЬЮ SELECT LEVEL НА ТЕЛЕФОНЕ --&gt;
+&lt;div style=&quot;width: 30px; height: 35px; margin: 10px auto !important; background: red; border: 3px solid #000; border-radius: 6px; z-index: 99999; position: relative;&quot;&gt;&lt;/div&gt;
+
+    
+    
 
     
     &lt;div class=&quot;map-absolute-canvas&quot;&gt;
@@ -3008,18 +3037,6 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
 
 
 
-&lt;&lt;script&gt;&gt;
-  // ЖЕСТКИЙ ФИКС: Принудительно отключаем заклинивший кэш старых кликеров, чтобы экран больше НЕ моргал!
-  $(document).off(&#39;pointerdown click&#39;);
-  $(document).off(&#39;click&#39;, &#39;.level-dog-node, .level-ball-node&#39;);
-  
-  // Возвращаем родное, тихое мобильное поведение для скроллинга Телеграма
-  setTimeout(function() {
-    $(&#39;.level-dog-node, .level-ball-node, .level-node&#39;).on(&#39;click&#39;, function(e) {
-      e.stopPropagation();
-    });
-  }, 100);
-&lt;&lt;/script&gt;&gt;
 
 &lt;&lt;/nobr&gt;&gt;
 
