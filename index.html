@@ -2806,20 +2806,212 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
 &lt;div class=&quot;menu-mobile-fullscreen&quot;&gt;
   
 
-  
-&lt;!-- НАША КЛАССИЧЕСКАЯ РЕТРО-ШАПКА С ЧЕСТНЫМ ОТОБРАЖЕНИЕМ ПЕРЕМЕННЫХ --&gt;
-&lt;div class=&quot;mobile-window-header&quot; style=&quot;display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 0 12px !important; box-sizing: border-box !important; height: 42px !important;&quot;&gt;
-  &lt;div class=&quot;mobile-header-dots&quot;&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;
-  &lt;div style=&quot;display: flex; gap: 15px; font-family: sans-serif; font-size: 12px; font-weight: bold; color: #000;&quot;&gt;
-    &lt;span&gt;💎 &lt;&lt;print $crystals&gt;&gt;&lt;/span&gt;
-    &lt;span&gt;⚡ &lt;&lt;print $energy&gt;&gt;/5&lt;/span&gt;
-  &lt;/div&gt;
-  &lt;div class=&quot;mobile-header-title&quot;&gt;bubbles&lt;/div&gt;
-&lt;/div&gt;
 
   
+&lt;!-- [ЧАСТЬ 1 ИЗ 2] МЕГА-АНИМИРОВАННАЯ ШАПКА BUBBALOO: ВЗРЫВНОЙ СИРОП TUTTI FRUTTI --&gt;
+&lt;div class=&quot;mobile-window-header&quot; style=&quot;display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 0 12px !important; box-sizing: border-box !important; height: 42px !important; background: #ffffff !important; border-bottom: 4px solid #000000 !important; position: relative !important; overflow: visible !important; z-index: 99999 !important;&quot;&gt;
   
-  
+  &lt;!-- 1. СЛЕВА: РЕТРО-ТОЧКИ --&gt;
+  &lt;div class=&quot;mobile-header-dots&quot; style=&quot;display: flex !important; gap: 5px !important; min-width: 55px !important; position: relative; z-index: 10;&quot;&gt;
+    &lt;span style=&quot;display: inline-block; width: 10px; height: 10px; border: 2px solid #000; border-radius: 50%;&quot;&gt;&lt;/span&gt;
+    &lt;span style=&quot;display: inline-block; width: 10px; height: 10px; border: 2px solid #000; border-radius: 50%;&quot;&gt;&lt;/span&gt;
+    &lt;span style=&quot;display: inline-block; width: 10px; height: 10px; border: 2px solid #000; border-radius: 50%;&quot;&gt;&lt;/span&gt;
+  &lt;/div&gt;
+
+  &lt;!-- 2. ПО ЦЕНТРУ: ЛОГОТИП С ДИНАМИЧНЫМИ АНИМАЦИЯМИ КЛЯКСЫ И БРЫЗГ --&gt;
+  &lt;div style=&quot;position: absolute !important; left: 50% !important; top: 3px !important; transform: translateX(-50%) !important; width: 110px !important; height: 65px !important; overflow: visible !important; pointer-events: none !important; z-index: 5 !important; display: flex; align-items: flex-start; justify-content: center;&quot;&gt;
+    
+    &lt;svg viewBox=&quot;0 0 195 135&quot; style=&quot;width: 100%; height: 100%; display: block; overflow: visible; filter: drop-shadow(0px 3px 0px rgba(0,0,0,0.15));&quot;&gt;
+      
+      &lt;!-- 🛠️ ВСТРОЕННЫЕ КРИСТАЛЬНО ЧИСТЫЕ CSS-АНИМАЦИИ ВЗРЫВНОГО СИРОПА --&gt;
+      &lt;style&gt;
+        @keyframes liquid-burst {
+          0% { transform: scale(1); }
+          50% { transform: scale(1.05) skewX(2deg) skewY(-1deg); }
+          100% { transform: scale(1); }
+        }
+        @keyframes drip-jump-1 {
+          0% { transform: translateY(0); }
+          50% { transform: translateY(-4px) translateX(-1px); }
+          100% { transform: translateY(0); }
+        }
+        @keyframes drip-jump-2 {
+          0% { transform: translateY(0); }
+          45% { transform: translateY(-5px) translateX(2px); }
+          100% { transform: translateY(0); }
+        }
+        @keyframes drip-jump-3 {
+          0% { transform: translateY(0); }
+          55% { transform: translateY(-3px) translateX(-2px); }
+          100% { transform: translateY(0); }
+        }
+        .anim-burst-klyaksa { animation: liquid-burst 2s ease-in-out infinite; transform-origin: 136px 73px; }
+        .anim-drip-1 { animation: drip-jump-1 1.8s ease-in-out infinite; transform-origin: 102px 120px; }
+        .anim-drip-2 { animation: drip-jump-2 2.2s ease-in-out infinite; transform-origin: 148px 133px; }
+        .anim-drip-3 { animation: drip-jump-3 1.5s ease-in-out infinite; transform-origin: 201px 116px; }
+      &lt;/style&gt;
+
+      &lt;!-- СТАТИЧНАЯ СТИЛЬНАЯ ОБЁРТКА (ПОВОРОТ ВНУТРИ SVG, БЕЗ СДВИГОВ И ТРЯСКИ) --&gt;
+      &lt;g transform=&quot;rotate(-4 97 67)&quot;&gt;
+
+        &lt;!-- СИНЯЯ ПОДЛОЖКА-ТЕНЬ КОНФЕТЫ --&gt;
+        &lt;g fill=&quot;#2980b9&quot; stroke=&quot;#2980b9&quot; stroke-width=&quot;8&quot; stroke-linejoin=&quot;round&quot; transform=&quot;translate(0, 4.5)&quot;&gt;
+          &lt;path d=&quot;M 20,18 Q 95,4 172,18 L 171,24 L 176,29 L 171,34 L 176,39 L 171,44 L 176,49 L 171,54 L 176,59 L 171,64 C 152,66 142,75 138,82 Q 95,108 22,82 L 23,75 L 18,70 L 23,65 L 18,60 L 23,55 L 18,50 L 23,45 L 18,40 L 23,35 L 18,30 L 23,24 Z&quot; /&gt;
+          &lt;circle cx=&quot;95&quot; cy=&quot;65&quot; r=&quot;23&quot; /&gt;
+        &lt;/g&gt;
+
+        &lt;!-- ЖЕСТКИЙ ЧЁРНЫЙ АРКАДНЫЙ КОНТУР КОНФЕТЫ --&gt;
+        &lt;g fill=&quot;#000000&quot; stroke=&quot;#000000&quot; stroke-width=&quot;5&quot; stroke-linejoin=&quot;round&quot;&gt;
+          &lt;path d=&quot;M 20,18 Q 95,4 172,18 L 171,24 L 176,29 L 171,34 L 176,39 L 171,44 L 176,49 L 171,54 L 176,59 L 171,64 C 152,66 142,75 138,82 Q 95,108 22,82 L 23,75 L 18,70 L 23,65 L 18,60 L 23,55 L 18,50 L 23,45 L 18,40 L 23,35 L 18,30 L 23,24 Z&quot; /&gt;
+          &lt;circle cx=&quot;95&quot; cy=&quot;65&quot; r=&quot;23&quot; /&gt;
+          &lt;circle cx=&quot;50&quot; cy=&quot;56&quot; r=&quot;6&quot; /&gt;
+          &lt;circle cx=&quot;71&quot; cy=&quot;74&quot; r=&quot;5&quot; /&gt;
+          &lt;circle cx=&quot;120&quot; cy=&quot;74&quot; r=&quot;6.5&quot; /&gt;
+          &lt;circle cx=&quot;144&quot; cy=&quot;62&quot; r=&quot;5&quot; /&gt;
+          &lt;path d=&quot;M 148,74 Q 154,76 158,84 Q 152,90 146,86 Q 142,80 148,74 Z&quot; /&gt;
+          
+          &lt;!-- Шарики на самой розовой обертке --&gt;
+          &lt;circle cx=&quot;44&quot; cy=&quot;30&quot; r=&quot;5&quot; /&gt;
+          &lt;circle cx=&quot;114&quot; cy=&quot;24&quot; r=&quot;5&quot; /&gt;
+          &lt;circle cx=&quot;144&quot; cy=&quot;22&quot; r=&quot;4.5&quot; /&gt;
+          &lt;circle cx=&quot;142&quot; cy=&quot;74&quot; r=&quot;5&quot; /&gt;
+        &lt;/g&gt;
+
+        &lt;!-- РОЗОВОЕ ТЕЛО НАДУТОЙ ОБЁРТКИ --&gt;
+        &lt;path d=&quot;M 20,18 Q 95,4 172,18 L 171,24 L 176,29 L 171,34 L 176,39 L 171,44 L 176,49 L 171,54 L 176,59 L 171,64 C 152,66 142,75 138,82 Q 95,108 22,82 L 23,75 L 18,70 L 23,65 L 18,60 L 23,55 L 18,50 L 23,45 L 18,40 L 23,35 L 18,30 L 23,24 Z&quot; fill=&quot;#ff9ff3&quot; stroke=&quot;#000000&quot; stroke-width=&quot;1&quot; /&gt;
+        
+        &lt;!-- ВСЕ СТАТИЧНЫЕ ВНУТРЕННИЕ РОЗОВЫЕ ШАРЫ --&gt;
+        &lt;g fill=&quot;#ff7675&quot; stroke=&quot;#000000&quot; stroke-width=&quot;1&quot;&gt;
+          &lt;circle cx=&quot;95&quot; cy=&quot;65&quot; r=&quot;23&quot; /&gt;
+          &lt;circle cx=&quot;50&quot; cy=&quot;56&quot; r=&quot;6&quot; /&gt;   
+          &lt;circle cx=&quot;71&quot; cy=&quot;74&quot; r=&quot;5&quot; /&gt;   
+          &lt;circle cx=&quot;120&quot; cy=&quot;74&quot; r=&quot;6.5&quot; /&gt; 
+          &lt;circle cx=&quot;144&quot; cy=&quot;62&quot; r=&quot;5&quot; /&gt;   
+          &lt;circle cx=&quot;44&quot; cy=&quot;30&quot; r=&quot;5&quot; /&gt;
+          &lt;circle cx=&quot;114&quot; cy=&quot;24&quot; r=&quot;5&quot; /&gt;
+          &lt;circle cx=&quot;144&quot; cy=&quot;22&quot; r=&quot;4.5&quot; /&gt;
+          &lt;circle cx=&quot;142&quot; cy=&quot;74&quot; r=&quot;5&quot; /&gt;
+        &lt;/g&gt;
+        &lt;!-- [ЧАСТЬ 2 ИЗ 2] ПРОДОЛЖЕНИЕ ШАПКИ С ПОЛНОЙ ДИНАМИКОЙ ВСПЛЕСКА СИРОПА --&gt;
+        &lt;!-- Блики для 3D глянца обёртки и шариков --&gt;
+        &lt;ellipse cx=&quot;86&quot; cy=&quot;55&quot; rx=&quot;6&quot; ry=&quot;3&quot; fill=&quot;#ffffff&quot; opacity=&quot;0.65&quot; transform=&quot;rotate(-25 86 55)&quot; /&gt;
+        &lt;circle cx=&quot;47&quot; cy=&quot;53&quot; r=&quot;1.5&quot; fill=&quot;#ffffff&quot; opacity=&quot;0.6&quot; /&gt;
+        &lt;circle cx=&quot;69&quot; cy=&quot;71&quot; r=&quot;1.2&quot; fill=&quot;#ffffff&quot; opacity=&quot;0.6&quot; /&gt;
+        &lt;circle cx=&quot;116&quot; cy=&quot;70&quot; r=&quot;1.8&quot; fill=&quot;#ffffff&quot; opacity=&quot;0.6&quot; /&gt;
+        &lt;circle cx=&quot;141&quot; cy=&quot;59&quot; r=&quot;1.3&quot; fill=&quot;#ffffff&quot; opacity=&quot;0.6&quot; /&gt;
+        &lt;circle cx=&quot;42&quot; cy=&quot;28&quot; r=&quot;1.2&quot; fill=&quot;#ffffff&quot; opacity=&quot;0.6&quot; /&gt;
+        &lt;circle cx=&quot;112&quot; cy=&quot;22&quot; r=&quot;1.2&quot; fill=&quot;#ffffff&quot; opacity=&quot;0.6&quot; /&gt;
+        &lt;circle cx=&quot;142&quot; cy=&quot;20&quot; r=&quot;1&quot; fill=&quot;#ffffff&quot; opacity=&quot;0.6&quot; /&gt;
+        &lt;circle cx=&quot;140&quot; cy=&quot;72&quot; r=&quot;1.2&quot; fill=&quot;#ffffff&quot; opacity=&quot;0.6&quot; /&gt;
+
+        &lt;!-- Складки пачки жвачки --&gt;
+        &lt;path d=&quot;M 22,19 Q 95,7 170,19&quot; fill=&quot;none&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;2.5&quot; opacity=&quot;0.45&quot; /&gt;
+        &lt;path d=&quot;M 24,80 Q 95,101 135,79&quot; fill=&quot;none&quot; stroke=&quot;#d974be&quot; stroke-width=&quot;2.5&quot; opacity=&quot;0.6&quot; /&gt;
+        &lt;path d=&quot;M 25,20 L 26,76 M 167,20 L 165,58&quot; fill=&quot;none&quot; stroke=&quot;#f68dd5&quot; stroke-width=&quot;2.5&quot; opacity=&quot;0.7&quot; /&gt;
+
+        &lt;!-- ЖЁЛТЫЙ ОБЪЁМНЫЙ ТЕКСТ С ЭФФЕКТОМ ПЕРСПЕКТИВЫ --&gt;
+        &lt;g font-family=&quot;&#39;Arial Black&#39;, sans-serif&quot; font-weight=&quot;900&quot; text-anchor=&quot;middle&quot;&gt;
+          &lt;g fill=&quot;none&quot; stroke=&quot;#000000&quot; stroke-width=&quot;6.5&quot; stroke-linejoin=&quot;round&quot;&gt;
+            &lt;text x=&quot;31&quot; y=&quot;58&quot; font-size=&quot;17px&quot;&gt;b&lt;/text&gt;
+            &lt;text x=&quot;44&quot; y=&quot;58&quot; font-size=&quot;19px&quot;&gt;u&lt;/text&gt;
+            &lt;text x=&quot;59&quot; y=&quot;58&quot; font-size=&quot;25px&quot;&gt;b&lt;/text&gt;
+            &lt;text x=&quot;75&quot; y=&quot;58&quot; font-size=&quot;28px&quot;&gt;b&lt;/text&gt;
+            &lt;text x=&quot;90&quot; y=&quot;58&quot; font-size=&quot;29px&quot;&gt;l&lt;/text&gt;
+            &lt;text x=&quot;103&quot; y=&quot;58&quot; font-size=&quot;27px&quot;&gt;e&lt;/text&gt;
+            &lt;text x=&quot;116&quot; y=&quot;58&quot; font-size=&quot;25px&quot;&gt;s&lt;/text&gt;
+            &lt;text x=&quot;131&quot; y=&quot;58&quot; font-size=&quot;21px&quot;&gt;i&lt;/text&gt;
+            &lt;text x=&quot;141&quot; y=&quot;58&quot; font-size=&quot;20px&quot;&gt;s&lt;/text&gt;
+            &lt;text x=&quot;151&quot; y=&quot;58&quot; font-size=&quot;16px&quot;&gt;.&lt;/text&gt;
+            &lt;text x=&quot;157&quot; y=&quot;58&quot; font-size=&quot;16px&quot;&gt;.&lt;/text&gt;
+            &lt;text x=&quot;163&quot; y=&quot;58&quot; font-size=&quot;16px&quot;&gt;.&lt;/text&gt;
+          &lt;/g&gt;
+          &lt;g fill=&quot;none&quot; stroke=&quot;#2980b9&quot; stroke-width=&quot;4.2&quot; stroke-linejoin=&quot;round&quot;&gt;
+            &lt;text x=&quot;31&quot; y=&quot;58&quot; font-size=&quot;17px&quot;&gt;b&lt;/text&gt;
+            &lt;text x=&quot;44&quot; y=&quot;58&quot; font-size=&quot;19px&quot;&gt;u&lt;/text&gt;
+            &lt;text x=&quot;59&quot; y=&quot;58&quot; font-size=&quot;25px&quot;&gt;b&lt;/text&gt;
+            &lt;text x=&quot;75&quot; y=&quot;58&quot; font-size=&quot;28px&quot;&gt;b&lt;/text&gt;
+            &lt;text x=&quot;90&quot; y=&quot;58&quot; font-size=&quot;29px&quot;&gt;l&lt;/text&gt;
+            &lt;text x=&quot;103&quot; y=&quot;58&quot; font-size=&quot;27px&quot;&gt;e&lt;/text&gt;
+            &lt;text x=&quot;116&quot; y=&quot;58&quot; font-size=&quot;25px&quot;&gt;s&lt;/text&gt;
+            &lt;text x=&quot;131&quot; y=&quot;58&quot; font-size=&quot;21px&quot;&gt;i&lt;/text&gt;
+            &lt;text x=&quot;141&quot; y=&quot;58&quot; font-size=&quot;20px&quot;&gt;s&lt;/text&gt;
+            &lt;text x=&quot;151&quot; y=&quot;58&quot; font-size=&quot;16px&quot;&gt;.&lt;/text&gt;
+            &lt;text x=&quot;157&quot; y=&quot;58&quot; font-size=&quot;16px&quot;&gt;.&lt;/text&gt;
+            &lt;text x=&quot;163&quot; y=&quot;58&quot; font-size=&quot;16px&quot;&gt;.&lt;/text&gt;
+          &lt;/g&gt;
+          &lt;g fill=&quot;#f1c40f&quot;&gt;
+            &lt;text x=&quot;31&quot; y=&quot;58&quot; font-size=&quot;17px&quot;&gt;b&lt;/text&gt;
+            &lt;text x=&quot;44&quot; y=&quot;58&quot; font-size=&quot;19px&quot;&gt;u&lt;/text&gt;
+            &lt;text x=&quot;59&quot; y=&quot;58&quot; font-size=&quot;25px&quot;&gt;b&lt;/text&gt;
+            &lt;text x=&quot;75&quot; y=&quot;58&quot; font-size=&quot;28px&quot;&gt;b&lt;/text&gt;
+            &lt;text x=&quot;90&quot; y=&quot;58&quot; font-size=&quot;29px&quot;&gt;l&lt;/text&gt;
+            &lt;text x=&quot;103&quot; y=&quot;58&quot; font-size=&quot;27px&quot;&gt;e&lt;/text&gt;
+            &lt;text x=&quot;116&quot; y=&quot;58&quot; font-size=&quot;25px&quot;&gt;s&lt;/text&gt;
+            &lt;text x=&quot;131&quot; y=&quot;58&quot; font-size=&quot;21px&quot;&gt;i&lt;/text&gt;
+            &lt;text x=&quot;141&quot; y=&quot;58&quot; font-size=&quot;20px&quot;&gt;s&lt;/text&gt;
+            &lt;text x=&quot;151&quot; y=&quot;58&quot; font-size=&quot;16px&quot;&gt;.&lt;/text&gt;
+            &lt;text x=&quot;157&quot; y=&quot;58&quot; font-size=&quot;16px&quot;&gt;.&lt;/text&gt;
+            &lt;text x=&quot;163&quot; y=&quot;58&quot; font-size=&quot;16px&quot;&gt;.&lt;/text&gt;
+          &lt;/g&gt;
+          &lt;g fill=&quot;none&quot; stroke=&quot;#ffffff&quot; stroke-width=&quot;0.8&quot; opacity=&quot;0.5&quot;&gt;
+            &lt;text x=&quot;30&quot; y=&quot;57&quot; font-size=&quot;17px&quot;&gt;b&lt;/text&gt;
+            &lt;text x=&quot;43&quot; y=&quot;57&quot; font-size=&quot;19px&quot;&gt;u&lt;/text&gt;
+            &lt;text x=&quot;58&quot; y=&quot;57&quot; font-size=&quot;25px&quot;&gt;b&lt;/text&gt;
+            &lt;text x=&quot;74&quot; y=&quot;57&quot; font-size=&quot;28px&quot;&gt;b&lt;/text&gt;
+            &lt;text x=&quot;89&quot; y=&quot;57&quot; font-size=&quot;29px&quot;&gt;l&lt;/text&gt;
+            &lt;text x=&quot;102&quot; y=&quot;57&quot; font-size=&quot;27px&quot;&gt;e&lt;/text&gt;
+            &lt;text x=&quot;115&quot; y=&quot;57&quot; font-size=&quot;25px&quot;&gt;s&lt;/text&gt;
+          &lt;/g&gt;
+        &lt;/g&gt;
+
+        &lt;!-- 🛠️ АНИМИРОВАННАЯ ЗОНА ВСПЛЕСКА (КЛЯКСА И КАПЛИ ВЗРЫВАЮТСЯ СИРОПОМ!) --&gt;
+        &lt;!-- Сама раскидистая сочная клякса Tutti Frutti пульсирует щупальцами --&gt;
+        &lt;g class=&quot;anim-burst-klyaksa&quot;&gt;
+          &lt;g fill=&quot;#ff7675&quot; stroke=&quot;#000000&quot; stroke-width=&quot;1&quot;&gt;
+            &lt;path d=&quot;M 136,73 C 142,71 146,80 156,76 C 163,64 171,55 178,65 C 182,73 172,83 182,88 C 193,81 202,86 199,99 C 195,108 184,103 187,116 C 176,116 172,128 163,119 C 158,109 152,114 144,124 C 135,129 130,119 136,107 C 124,106 117,114 112,105 C 111,92 124,91 130,85 C 124,77 128,73 136,73 Z&quot; /&gt;
+          &lt;/g&gt;
+          &lt;g fill=&quot;none&quot; stroke=&quot;#ffffff&quot; stroke-linecap=&quot;round&quot; opacity=&quot;0.75&quot;&gt;
+            &lt;path d=&quot;M 139,76 C 142,80 148,81 152,81&quot; stroke-width=&quot;1.8&quot; /&gt;
+            &lt;path d=&quot;M 172,69 Q 175,76 168,81&quot; stroke-width=&quot;1.8&quot; /&gt;
+          &lt;/g&gt;
+          &lt;g fill=&quot;#ffffff&quot; opacity=&quot;0.65&quot;&gt;
+            &lt;ellipse cx=&quot;191&quot; cy=&quot;95&quot; rx=&quot;4&quot; ry=&quot;1.5&quot; transform=&quot;rotate(35 191 95)&quot; /&gt;
+            &lt;ellipse cx=&quot;182&quot; cy=&quot;111&quot; rx=&quot;3&quot; ry=&quot;1.2&quot; transform=&quot;rotate(15 182 111)&quot; /&gt;
+            &lt;ellipse cx=&quot;142&quot; cy=&quot;118&quot; rx=&quot;2.5&quot; ry=&quot;1&quot; transform=&quot;rotate(-20 142 118)&quot; /&gt;
+          &lt;/g&gt;
+        &lt;/g&gt;
+
+        &lt;!-- Летящие круглые капли совершают задорные прыжки в такт взрыва сиропа --&gt;
+        &lt;g class=&quot;anim-drip-1&quot; fill=&quot;#ff7675&quot; stroke=&quot;#000000&quot; stroke-width=&quot;1&quot;&gt;
+          &lt;circle cx=&quot;102&quot; cy=&quot;120&quot; r=&quot;3.5&quot; /&gt;
+          &lt;circle cx=&quot;101&quot; cy=&quot;118&quot; r=&quot;1.2&quot; fill=&quot;#ffffff&quot; opacity=&quot;0.65&quot; stroke=&quot;none&quot; /&gt;
+        &lt;/g&gt;
+        &lt;g class=&quot;anim-drip-2&quot; fill=&quot;#ff7675&quot; stroke=&quot;#000000&quot; stroke-width=&quot;1&quot;&gt;
+          &lt;circle cx=&quot;148&quot; cy=&quot;133&quot; r=&quot;4.5&quot; /&gt;
+          &lt;circle cx=&quot;146&quot; cy=&quot;131&quot; r=&quot;1.5&quot; fill=&quot;#ffffff&quot; opacity=&quot;0.65&quot; stroke=&quot;none&quot; /&gt;
+        &lt;/g&gt;
+        &lt;g class=&quot;anim-drip-3&quot; fill=&quot;#ff7675&quot; stroke=&quot;#000000&quot; stroke-width=&quot;1&quot;&gt;
+          &lt;circle cx=&quot;201&quot; cy=&quot;116&quot; r=&quot;3.5&quot; /&gt;
+        &lt;/g&gt;
+
+      &lt;/g&gt; &lt;!-- Конец группы поворота холста --&gt;
+
+    &lt;/svg&gt;
+  &lt;/div&gt;
+
+  &lt;!-- 3. СПРАВА: БЛОК РЕСУРСОВ --&gt;
+  &lt;div style=&quot;display: flex !important; gap: 8px !important; align-items: center !important; font-family: &#39;Arial Black&#39;, sans-serif !important; font-size: 11px !important; font-weight: 900 !important; color: #000000 !important; min-width: 55px !important; justify-content: flex-end !important; position: relative; z-index: 10;&quot;&gt;
+    &lt;span&gt;💎&lt;&lt;print $crystals&gt;&gt;&lt;/span&gt;
+    &lt;span&gt;⚡&lt;&lt;print $energy&gt;&gt;&lt;/span&gt;
+  &lt;/div&gt;
+
+&lt;/div&gt;
+
+
+
+
+
+
   
   
   
