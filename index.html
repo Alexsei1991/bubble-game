@@ -104,7 +104,25 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 		<div id="init-lacking"><p>Browser lacks capabilities required to play.</p><p>Upgrade or switch to another browser.</p></div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<tw-storydata name="Пузыри" startnode="6" creator="Twine" creator-version="2.12.0" format="SugarCube" format-version="2.37.3" ifid="0537F611-5692-4943-8CE4-A319204F09BF" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">
+	<tw-storydata name="Пузыри" startnode="6" creator="Twine" creator-version="2.12.0" format="SugarCube" format-version="2.37.3" ifid="0537F611-5692-4943-8CE4-A319204F09BF" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* ТОТАЛЬНОЕ УНИЧТОЖЕНИЕ КВАДРАТНОЙ СЕРОЙ ПОДСВЕТКИ ПРИ НАЖАТИИ */
+button, 
+a, 
+.level-button, 
+.btn,
+[role="button"],
+svg *,
+div[onclick] {
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+  outline: none !important;
+}
+
+
+
+
+
+
+
 /* --- ЖЕСТКИЙ ФИКС: ПРИЖИМАЕМ К ВЕРХУ ЭКРАНА ОДИН В ОДИН КАК ИГРА --- */
 .menu-mobile-fullscreen {
   position: absolute !important;
