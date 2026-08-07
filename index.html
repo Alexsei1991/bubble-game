@@ -2656,7 +2656,21 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
 
 &lt;/div&gt;
 &lt;&lt;/nobr&gt;&gt;
-</tw-passagedata><tw-passagedata pid="3" name="StoryInit" tags="" position="100,200" size="100,200">&lt;&lt;set $unlockedLevels = 1&gt;&gt;
+</tw-passagedata><tw-passagedata pid="3" name="StoryInit" tags="" position="100,200" size="100,200">&lt;script&gt;
+  /* ЖЕЛЕЗОБЕТОННОЕ СЛИЯНИЕ СИСТЕМНОЙ ШАПКИ TELEGRAM С НАШЕЙ ИГРОЙ */
+  if (window.Telegram &amp;&amp; window.Telegram.WebApp) {
+    window.Telegram.WebApp.ready();
+    // Красим верхнюю плашку в идеальный белый цвет шапки игры
+    window.Telegram.WebApp.setHeaderColor(&#39;#ffffff&#39;);
+    // Красим фоновый цвет самого приложения, чтобы не было серых кусков
+    window.Telegram.WebApp.setBackgroundColor(&#39;#ffffff&#39;);
+  }
+&lt;/script&gt;
+
+
+
+
+&lt;&lt;set $unlockedLevels = 1&gt;&gt;
 
 &lt;&lt;set $level1_stars = 0&gt;&gt;
 &lt;&lt;set $level2_stars = 0&gt;&gt;
@@ -2867,11 +2881,9 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
 &lt;!-- [ЧАСТЬ 1 ИЗ 2] МЕГА-АНИМИРОВАННАЯ ШАПКА BUBBALOO: ВЗРЫВНОЙ СИРОП TUTTI FRUTTI --&gt;
 &lt;div class=&quot;mobile-window-header&quot; style=&quot;display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 0 12px !important; box-sizing: border-box !important; height: 42px !important; background: #ffffff !important; border-bottom: 4px solid #000000 !important; position: relative !important; overflow: visible !important; z-index: 99999 !important;&quot;&gt;
   
-  &lt;!-- 1. СЛЕВА: РЕТРО-ТОЧКИ --&gt;
-  &lt;div class=&quot;mobile-header-dots&quot; style=&quot;display: flex !important; gap: 5px !important; min-width: 55px !important; position: relative; z-index: 10;&quot;&gt;
-    &lt;span style=&quot;display: inline-block; width: 10px; height: 10px; border: 2px solid #000; border-radius: 50%;&quot;&gt;&lt;/span&gt;
-    &lt;span style=&quot;display: inline-block; width: 10px; height: 10px; border: 2px solid #000; border-radius: 50%;&quot;&gt;&lt;/span&gt;
-    &lt;span style=&quot;display: inline-block; width: 10px; height: 10px; border: 2px solid #000; border-radius: 50%;&quot;&gt;&lt;/span&gt;
+  &lt;!-- 1. ТЕПЕРЬ СЛЕВА: БЛОК КРИСТАЛЛОВ (КРИСТАЛЛЫ ПЕРЕЕХАЛИ СЮДА!) --&gt;
+  &lt;div style=&quot;display: flex !important; align-items: center !important; font-family: &#39;Arial Black&#39;, sans-serif !important; font-size: 11px !important; font-weight: 900 !important; color: #000000 !important; min-width: 55px !important; justify-content: flex-start !important; position: relative; z-index: 10;&quot;&gt;
+    &lt;span&gt;💎&lt;&lt;print $crystals&gt;&gt;&lt;/span&gt;
   &lt;/div&gt;
 
   &lt;!-- 2. ПО ЦЕНТРУ: ЛОГОТИП С ДИНАМИЧНЫМИ АНИМАЦИЯМИ КЛЯКСЫ И БРЫЗГ --&gt;
@@ -3057,7 +3069,6 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
 
   &lt;!-- 3. СПРАВА: БЛОК РЕСУРСОВ --&gt;
   &lt;div style=&quot;display: flex !important; gap: 8px !important; align-items: center !important; font-family: &#39;Arial Black&#39;, sans-serif !important; font-size: 11px !important; font-weight: 900 !important; color: #000000 !important; min-width: 55px !important; justify-content: flex-end !important; position: relative; z-index: 10;&quot;&gt;
-    &lt;span&gt;💎&lt;&lt;print $crystals&gt;&gt;&lt;/span&gt;
     &lt;span&gt;⚡&lt;&lt;print $energy&gt;&gt;&lt;/span&gt;
   &lt;/div&gt;
 
