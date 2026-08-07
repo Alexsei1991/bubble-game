@@ -2657,13 +2657,11 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
 &lt;/div&gt;
 &lt;&lt;/nobr&gt;&gt;
 </tw-passagedata><tw-passagedata pid="3" name="StoryInit" tags="" position="100,200" size="100,200">&lt;script&gt;
-  /* ЖЕЛЕЗОБЕТОННОЕ СЛИЯНИЕ СИСТЕМНОЙ ШАПКИ TELEGRAM С НАШЕЙ ИГРОЙ */
+  /* ТОЧЕЧНОЕ ПЕРЕКРАШИВАНИЕ СИСТЕМНОЙ ШАПКИ TELEGRAM В ЦВЕТ ЖВАЧКИ */
   if (window.Telegram &amp;&amp; window.Telegram.WebApp) {
     window.Telegram.WebApp.ready();
-    // Красим верхнюю плашку в идеальный белый цвет шапки игры
-    window.Telegram.WebApp.setHeaderColor(&#39;#ffffff&#39;);
-    // Красим фоновый цвет самого приложения, чтобы не было серых кусков
-    window.Telegram.WebApp.setBackgroundColor(&#39;#ffffff&#39;);
+    // Красим ТОЛЬКО верхнюю полосу Телеграма (с названием бота и крестиком)
+    window.Telegram.WebApp.setHeaderColor(&#39;#ff9ff3&#39;);
   }
 &lt;/script&gt;
 
