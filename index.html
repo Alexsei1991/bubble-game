@@ -2656,17 +2656,7 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
 
 &lt;/div&gt;
 &lt;&lt;/nobr&gt;&gt;
-</tw-passagedata><tw-passagedata pid="3" name="StoryInit" tags="" position="100,200" size="100,200">&lt;script&gt;
-  /* ТОЧЕЧНОЕ ПЕРЕКРАШИВАНИЕ СИСТЕМНОЙ ШАПКИ TELEGRAM В ЦВЕТ ЖВАЧКИ */
-  if (window.Telegram &amp;&amp; window.Telegram.WebApp) {
-    window.Telegram.WebApp.ready();
-    // Красим ТОЛЬКО верхнюю полосу Телеграма (с названием бота и крестиком)
-    window.Telegram.WebApp.setHeaderColor(&#39;#ff9ff3&#39;);
-  }
-&lt;/script&gt;
-
-
-
+</tw-passagedata><tw-passagedata pid="3" name="StoryInit" tags="" position="100,200" size="100,200">
 
 &lt;&lt;set $unlockedLevels = 1&gt;&gt;
 
@@ -2878,6 +2868,35 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
   
 &lt;!-- [ЧАСТЬ 1 ИЗ 2] МЕГА-АНИМИРОВАННАЯ ШАПКА BUBBALOO: ВЗРЫВНОЙ СИРОП TUTTI FRUTTI --&gt;
 &lt;div class=&quot;mobile-window-header&quot; style=&quot;display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 0 12px !important; box-sizing: border-box !important; height: 42px !important; background: #ffffff !important; border-bottom: 4px solid #000000 !important; position: relative !important; overflow: visible !important; z-index: 99999 !important;&quot;&gt;
+
+
+
+
+  &lt;!-- 🛠️ 1. БРОНЕБОЙНЫЙ МЕТА-ТЕГ: ДАЕТ КОМАНДУ СИСТЕМЕ ANDROID ОКРАСИТЬ ТОП В РОЗОВЫЙ --&gt;
+  &lt;meta name=&quot;theme-color&quot; content=&quot;#ff9ff3&quot;&gt;
+  &lt;meta name=&quot;msapplication-navbutton-color&quot; content=&quot;#ff9ff3&quot;&gt;
+  &lt;meta name=&quot;apple-mobile-web-app-status-bar-style&quot; content=&quot;#ff9ff3&quot;&gt;
+
+  &lt;!-- 🛠️ 2. СИСТЕМНЫЙ СКРИПТ С ПРИНУДИТЕЛЬНЫМ ОБНОВЛЕНИЕМ ДЛЯ WebView TELEGRAM --&gt;
+  &lt;script&gt;
+    if (window.Telegram &amp;&amp; window.Telegram.WebApp) {
+      window.Telegram.WebApp.ready();
+      
+      // Принудительно устанавливаем кастомный розовый цвет для шапки
+      window.Telegram.WebApp.setHeaderColor(&#39;#ff9ff3&#39;);
+      
+      // Скрипт-триггер: заставляем Telegram Actions обновить интерфейс
+      if (typeof window.Telegram.WebApp.requestViewport === &#39;function&#39;) {
+        window.Telegram.WebApp.requestViewport();
+      }
+    }
+  &lt;/script&gt;
+
+
+
+&lt;!-- ТЕСТОВЫЙ КРАСНЫЙ КВАДРАТ: ТЕПЕРЬ СТРОГО ПОД НАДПИСЬЮ SELECT LEVEL НА ТЕЛЕФОНЕ --&gt;
+&lt;div style=&quot;width: 30px; height: 35px; margin: 10px auto !important; background: red; border: 3px solid #000; border-radius: 6px; z-index: 99999; position: relative;&quot;&gt;&lt;/div&gt;
+
   
   &lt;!-- 1. ТЕПЕРЬ СЛЕВА: БЛОК КРИСТАЛЛОВ (КРИСТАЛЛЫ ПЕРЕЕХАЛИ СЮДА!) --&gt;
   &lt;div style=&quot;display: flex !important; align-items: center !important; font-family: &#39;Arial Black&#39;, sans-serif !important; font-size: 11px !important; font-weight: 900 !important; color: #000000 !important; min-width: 55px !important; justify-content: flex-start !important; position: relative; z-index: 10;&quot;&gt;
