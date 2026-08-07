@@ -104,7 +104,7 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 		<div id="init-lacking"><p>Browser lacks capabilities required to play.</p><p>Upgrade or switch to another browser.</p></div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<tw-storydata name="Пузыри" startnode="6" creator="Twine" creator-version="2.12.0" format="SugarCube" format-version="2.37.3" ifid="0537F611-5692-4943-8CE4-A319204F09BF" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* --- ЖЕСТКИЙ АНТИ-СПРЫГ: ИГРА ВСТАЕТ ВМЕРТВУЮ, ШАПКА НЕ ДЁРГАЕТСЯ --- */
+	<tw-storydata name="Пузыри" startnode="6" creator="Twine" creator-version="2.12.0" format="SugarCube" format-version="2.37.3" ifid="0537F611-5692-4943-8CE4-A319204F09BF" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* --- ВОЗВРАТ ЛОГИКИ 1-Й ВЕРСИИ: КАРТА ИДЕТ ДО ПОТОЛКА, БЕЛЫЙ ОТСТУП СТЁРТ --- */
 .menu-mobile-fullscreen {
   position: absolute !important;
   top: 0 !important; 
@@ -112,7 +112,6 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
   transform: translateX(-50%) !important; 
   
   width: 400px !important; 
-  /* 🛠️ МАТЕМАТИЧЕСКИЙ ФИКС: Высота строго равна экрану, никаких лишних пикселей для прыжка! */
   height: 100% !important; 
   max-height: 100vh !important;
   
@@ -123,27 +122,25 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
   z-index: 99999 !important;
   box-shadow: 0 20px 40px rgba(0,0,0,0.5) !important;
 
-  /* 🛠️ ФИКСАТОР СКРОЛЛА: Карта уровней крутится внутри, а сам макет физически заблокирован намертво */
+  /* Фиксатор изолированного скролла внутри */
   overflow-y: auto !important; 
   overflow-x: hidden !important;
   -webkit-overflow-scrolling: touch !important; 
-  
-  /* 🛠️ АНТИ-ТРЯСКА ДЛЯ ANDROID: Запрещаем странице совершать микродвижения вверх-вниз */
   overscroll-behavior-y: contain !important;
   touch-action: pan-y !important;
   
-  /* Наш идеальный зазор под конфетой */
-  padding-top: 52px !important;
+  /* 🛠️ КАК В 1-Й ВЕРСИИ: Обнуляем внутренний отступ, чтобы ушки кнопок зашли под жвачку */
+  padding-top: 0px !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
   padding-bottom: 20px !important;
 }
 
-/* Скрываем ползунок скролла Android */
-.menu-mobile-fullscreen::-webkit-scrollbar {
-  display: none !important;
-  width: 0 !important;
-  height: 0 !important;
+/* 🛠️ ТОЧЕЧНЫЙ СДВИГ ТЕКСТА: Опускаем только надпись SELECT LEVEL на 55 пикселей, не создавая пустых полос в фоне */
+.menu-mobile-fullscreen h1,
+.menu-mobile-fullscreen h2,
+.menu-mobile-fullscreen .title-select {
+  margin-top: 55px !important;
 }
 
 
@@ -190,19 +187,19 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 }
 
 
-
-/* Шапка ретро-окна внутри мобильного экрана */
+/* Шапка ретро-окна внутри мобильного экрана: БЕЛЫЙ ФОН И РАМКА УНИЧТОЖЕНЫ НАВСЕГДА */
 .mobile-window-header {
   width: 100% !important;
   height: 42px !important;
-  background-color: #fff5f6 !important;
-  border-bottom: 4px solid #000000 !important;
+  background-color: transparent !important; /* ДЕЛАЕМ ХЕДЕР ПОЛНОСТЬЮ ПРОЗРАЧНЫМ */
+  border-bottom: none !important; /* НАЧИСТО СТИРАЕМ ЧЁРНУЮ РАЗДЕЛИТЕЛЬНУЮ ЧЕРТУ */
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
   padding: 0 15px !important;
   box-sizing: border-box !important;
 }
+
 
 .mobile-header-dots { display: flex !important; gap: 6px !important; }
 .mobile-header-dots span { width: 10px !important; height: 10px !important; background-color: #ffffff !important; border: 2px solid #000000 !important; border-radius: 50% !important; display: block !important; }
@@ -2076,7 +2073,6 @@ html, body, #story, .passage, #passages {
 
 
 
-
 /* МЕГА-УНИЧТОЖЕНИЕ СЕРЫХ КВАДРАТОВ НА ВСЕХ КНОПКАХ, ПАУЗЕ И ИКОНКАХ */
 * {
   -webkit-tap-highlight-color: transparent !important;
@@ -2890,9 +2886,9 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
 
 
 
-  
-&lt;div class=&quot;mobile-window-header&quot; style=&quot;display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 0 12px !important; box-sizing: border-box !important; height: 42px !important; background: #ffffff !important; position: fixed !important; top: 0 !important; left: 50% !important; transform: translateX(-50%) !important; width: 100% !important; max-width: 400px !important; overflow: visible !important; z-index: 999999 !important;&quot;&gt;
 
+
+&lt;div class=&quot;mobile-window-header&quot; style=&quot;display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 0 12px !important; box-sizing: border-box !important; height: 42px !important; background: transparent !important; position: fixed !important; top: 0 !important; left: 50% !important; transform: translateX(-50%) !important; width: 100% !important; max-width: 400px !important; overflow: visible !important; z-index: 999999 !important;&quot;&gt;
 
 
 
@@ -3128,7 +3124,9 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
   
 
   &lt;!-- ЦЕНТРАЛЬНЫЙ БЛОК: Скроллящаяся огромная карта уровней --&gt;
-  &lt;div class=&quot;mobile-menu-content vertical-scroll&quot; style=&quot;height: calc(100% - 42px) !important; overflow-y: scroll !important;&quot;&gt;
+    &lt;div class=&quot;mobile-menu-content vertical-scroll&quot; style=&quot;height: calc(100% - 42px) !important; overflow-y: scroll !important; padding-top: 55px !important; box-sizing: border-box !important;&quot;&gt;
+
+
     &lt;h1 class=&quot;frozen-level-title&quot; style=&quot;font-size: 26px !important; margin: 20px 0 10px 0 !important; text-align: center !important; width: 100%;&quot;&gt;SELECT LEVEL&lt;/h1&gt;
     
     
