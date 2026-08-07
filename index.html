@@ -2053,18 +2053,30 @@ html, body, #story, .passage, #passages {
 
 
 
-/* ТОТАЛЬНОЕ УНИЧТОЖЕНИЕ КВАДРАТНОЙ СЕРОЙ ПОДСВЕТКИ ПРИ НАЖАТИИ */
+/* МЕГА-УНИЧТОЖЕНИЕ СЕРЫХ КВАДРАТОВ НА ВСЕХ КНОПКАХ, ПАУЗЕ И ИКОНКАХ */
+* {
+  -webkit-tap-highlight-color: transparent !important;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
+}
+
 button, 
 a, 
+img,
+svg,
+svg *,
 .level-button, 
+.pause-button,
 .btn,
 [role="button"],
-svg *,
-div[onclick] {
+div[onclick],
+span[onclick] {
   -webkit-tap-highlight-color: transparent !important;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0) !important;
   outline: none !important;
+  -webkit-user-select: none !important;
+  user-select: none !important;
 }
+
 
 
 </style><script role="script" id="twine-user-script" type="text/twine-javascript">// 1. НАМЕРТВО УНИЧТОЖАЕМ СТАРЫЕ ЗАКЛИНИВШИЕ СКРОЛЛ-ОБРАБОТЧИКИ НА СМАРТФОНАХ
