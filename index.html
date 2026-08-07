@@ -120,14 +120,18 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
   background-color: #ffffff !important; 
   border: none !important;
   border-radius: 0px !important;
-
   
   box-sizing: border-box !important;
   overflow: hidden !important;
   margin: 0 !important;
-  padding: 0 !important;
   z-index: 99999 !important;
   box-shadow: 0 20px 40px rgba(0,0,0,0.5) !important;
+
+  /* 🛠️ КРИСТАЛЬНЫЙ СДВИГ: Опускаем карту уровней и текст пониже из-под шапки */
+  padding-top: 52px !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  padding-bottom: 0 !important;
 }
 
 
@@ -2868,8 +2872,7 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
 
 
   
-&lt;!-- [ЧАСТЬ 1 ИЗ 2] МЕГА-АНИМИРОВАННАЯ ШАПКА BUBBALOO: ВЗРЫВНОЙ СИРОП TUTTI FRUTTI --&gt;
-&lt;div class=&quot;mobile-window-header&quot; style=&quot;display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 0 12px !important; box-sizing: border-box !important; height: 42px !important; background: #ffffff !important; border-bottom: 4px solid #000000 !important; position: relative !important; overflow: visible !important; z-index: 99999 !important;&quot;&gt;
+&lt;div class=&quot;mobile-window-header&quot; style=&quot;display: flex !important; align-items: center !important; justify-content: space-between !important; padding: 0 12px !important; box-sizing: border-box !important; height: 42px !important; background: #ffffff !important; position: fixed !important; top: 0 !important; left: 50% !important; transform: translateX(-50%) !important; width: 100% !important; max-width: 400px !important; overflow: visible !important; z-index: 999999 !important;&quot;&gt;
 
 
 
