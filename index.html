@@ -104,7 +104,7 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
 		<div id="init-lacking"><p>Browser lacks capabilities required to play.</p><p>Upgrade or switch to another browser.</p></div>
 		<div id="init-loading"><div>Loading&hellip;</div></div>
 	</div>
-	<tw-storydata name="Пузыри" startnode="6" creator="Twine" creator-version="2.12.0" format="SugarCube" format-version="2.37.3" ifid="0537F611-5692-4943-8CE4-A319204F09BF" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* --- ЖЕСТКИЙ ФИКС: КАРТА СТАЛА ИЗОЛИРОВАННЫМ СКРОЛЛОМ, ШАПКА БОЛЬШЕ НЕ УЛЕТИТ --- */
+	<tw-storydata name="Пузыри" startnode="6" creator="Twine" creator-version="2.12.0" format="SugarCube" format-version="2.37.3" ifid="0537F611-5692-4943-8CE4-A319204F09BF" options="" tags="" zoom="1" hidden><style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">/* --- ЖЕСТКИЙ ФИКС: УГЛЫ, СКРОЛЛ-БАРЫ И СДВИГИ УНИЧТОЖЕНЫ НАВСЕГДА --- */
 .menu-mobile-fullscreen {
   position: absolute !important;
   top: 0 !important; 
@@ -112,7 +112,7 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
   transform: translateX(-50%) !important; 
   
   width: 400px !important; 
-  height: 100vh !important; /* Растягиваем строго на высоту экрана смартфона */
+  height: 100vh !important; 
   
   background-color: #ffffff !important; 
   border: none !important;
@@ -121,11 +121,11 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
   z-index: 99999 !important;
   box-shadow: 0 20px 40px rgba(0,0,0,0.5) !important;
 
-  /* 🛠️ ИЗОЛИРУЕМ СКРОЛЛ КАРТЫ: Крутятся только уровни внутри, а сама страница стоит намертво */
+  /* Изолированный скролл карты уровней */
   overflow-y: scroll !important; 
   overflow-x: hidden !important;
-  -webkit-overflow-scrolling: touch !important; /* Идеальная плавная прокрутка на смартфонах */
-  overscroll-behavior: none !important; /* Убираем резиновый прыжок Android */
+  -webkit-overflow-scrolling: touch !important; 
+  overscroll-behavior: none !important; 
   
   /* Идеальный сдвиг поля уровней из-под шапки */
   padding-top: 52px !important;
@@ -134,6 +134,29 @@ var LZString=function(){var r=String.fromCharCode,o="ABCDEFGHIJKLMNOPQRSTUVWXYZa
   padding-bottom: 20px !important;
 }
 
+/* 🛠️ ТОТАЛЬНОЕ УНИЧТОЖЕНИЕ ЧЕРНОЙ ПОЛОСЫ СПРАВА: Скрываем системный ползунок скролла на Android */
+.menu-mobile-fullscreen::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+.menu-mobile-fullscreen {
+  -ms-overflow-style: none !important;  /* Для старых браузеров */
+  scrollbar-width: none !important;  /* Для Firefox */
+}
+
+/* 🛠️ ЖЕЛЕЗОБЕТОННАЯ ФИКСАЦИЯ ШАПКИ НА ПОТОЛКЕ: Чтобы она больше никогда не съезжала вниз при скролле */
+.mobile-window-header {
+  position: fixed !important;
+  top: 0px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 100% !important;
+  max-width: 400px !important;
+  background: #ffffff !important;
+  z-index: 999999 !important;
+}
 
 
 
