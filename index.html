@@ -2872,30 +2872,52 @@ pauseOverlay.innerHTML = &#39;&lt;div class=&quot;pause-center-ball&quot;&gt;&lt
 
 
 
-  &lt;!-- 🛠️ 1. БРОНЕБОЙНЫЙ МЕТА-ТЕГ: ДАЕТ КОМАНДУ СИСТЕМЕ ANDROID ОКРАСИТЬ ТОП В РОЗОВЫЙ --&gt;
+
+
+
+  &lt;!-- БРОНЕБОЙНЫЕ СИСТЕМНЫЕ МЕТА-ТЕГИ ДЛЯ СИСТЕМЫ ANDROID --&gt;
   &lt;meta name=&quot;theme-color&quot; content=&quot;#ff9ff3&quot;&gt;
   &lt;meta name=&quot;msapplication-navbutton-color&quot; content=&quot;#ff9ff3&quot;&gt;
   &lt;meta name=&quot;apple-mobile-web-app-status-bar-style&quot; content=&quot;#ff9ff3&quot;&gt;
 
-  &lt;!-- 🛠️ 2. СИСТЕМНЫЙ СКРИПТ С ПРИНУДИТЕЛЬНЫМ ОБНОВЛЕНИЕМ ДЛЯ WebView TELEGRAM --&gt;
+  &lt;!-- 🛠️ СКРИПТ-ВЗЛОМЩИК: ПРИНУДИТЕЛЬНО ВШИВАЕТ РОЗОВЫЙ ЦВЕТ В ШАПКУ ТЕЛЕГРАМА ЧЕРЕЗ ЗАДЕРЖКУ --&gt;
   &lt;script&gt;
-    if (window.Telegram &amp;&amp; window.Telegram.WebApp) {
-      window.Telegram.WebApp.ready();
-      
-      // Принудительно устанавливаем кастомный розовый цвет для шапки
-      window.Telegram.WebApp.setHeaderColor(&#39;#ff9ff3&#39;);
-      
-      // Скрипт-триггер: заставляем Telegram Actions обновить интерфейс
-      if (typeof window.Telegram.WebApp.requestViewport === &#39;function&#39;) {
-        window.Telegram.WebApp.requestViewport();
+    (function() {
+      function initTelegramColor() {
+        if (window.Telegram &amp;&amp; window.Telegram.WebApp) {
+          window.Telegram.WebApp.ready();
+          
+          // Метод 1: Принудительная установка кастомного hex-кода жвачки
+          window.Telegram.WebApp.setHeaderColor(&#39;#ff9ff3&#39;);
+          
+          // Метод 2: Прямой взлом через внутренние настройки темы Telegram
+          try {
+            window.Telegram.WebApp.themeParams.header_bg_color = &#39;#ff9ff3&#39;;
+            window.Telegram.WebApp.themeParams.bg_color = &#39;#ff9ff3&#39;;
+          } catch(e) {}
+          
+          // Триггер на обновление экрана телефона
+          if (typeof window.Telegram.WebApp.requestViewport === &#39;function&#39;) {
+            window.Telegram.WebApp.requestViewport();
+          }
+        }
       }
-    }
+      
+      // Запускаем мгновенно и дублируем через 150 миллисекунд для обхода кэша Android
+      initTelegramColor();
+      setTimeout(initTelegramColor, 150);
+    })();
   &lt;/script&gt;
 
 
 
-&lt;!-- ТЕСТОВЫЙ КРАСНЫЙ КВАДРАТ: ТЕПЕРЬ СТРОГО ПОД НАДПИСЬЮ SELECT LEVEL НА ТЕЛЕФОНЕ --&gt;
-&lt;div style=&quot;width: 30px; height: 35px; margin: 10px auto !important; background: red; border: 3px solid #000; border-radius: 6px; z-index: 99999; position: relative;&quot;&gt;&lt;/div&gt;
+
+
+
+
+
+
+
 
   
   &lt;!-- 1. ТЕПЕРЬ СЛЕВА: БЛОК КРИСТАЛЛОВ (КРИСТАЛЛЫ ПЕРЕЕХАЛИ СЮДА!) --&gt;
